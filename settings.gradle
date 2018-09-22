@@ -1,0 +1,8 @@
+rootProject.name = 'konarrayka'
+include 'openapi'
+include 'core'
+include 'model'
+include 'sound'
+include 'configuration'
+include 'storage'
+
