@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">storage</string>
+    <string name="returnButtonText">return</string>
+    <string name="findButtonText">find</string>
+    <string name="pathEditText">/storage/emulated/0/</string>
+    <string name="permissionDenied">App don`t have permissions for read/write this file. If you permanently denied, then you a very stupid guy.</string>
+    <string name="pathEditHint">path</string>
 </resources>
