@@ -1,7 +1,7 @@
-package ru.spbstu.icc.kspt
+package ru.spbstu.icc.kspt.model
 
-import ru.spbstu.icc.kspt.model.Action
-import ru.spbstu.icc.kspt.model.Role
+import ru.spbstu.icc.kspt.common.model.Action
+import ru.spbstu.icc.kspt.common.model.Role
 
 class ActionImpl(vararg roles: Role, private val text: String) : Action {
     private val roles = roles.toList()

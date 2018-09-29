@@ -1,7 +1,7 @@
-package ru.spbstu.icc.kspt.configuration
+package ru.spbstu.icc.kspt.common.configuration
 
-import ru.spbstu.icc.kspt.model.Model
-import ru.spbstu.icc.kspt.model.Scenario
+import ru.spbstu.icc.kspt.common.model.Model
+import ru.spbstu.icc.kspt.common.model.Scenario
 import java.io.File
 
 interface ConfigurationManager {

@@ -1,8 +1,8 @@
-package ru.spbstu.icc.kspt
+package ru.spbstu.icc.kspt.model
 
-import ru.spbstu.icc.kspt.model.Action
-import ru.spbstu.icc.kspt.model.Role
-import ru.spbstu.icc.kspt.model.Model
+import ru.spbstu.icc.kspt.common.model.Action
+import ru.spbstu.icc.kspt.common.model.Role
+import ru.spbstu.icc.kspt.common.model.Model
 
 class ModelImpl : Model {
 

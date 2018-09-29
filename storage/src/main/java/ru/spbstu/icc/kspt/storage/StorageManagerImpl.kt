@@ -1,6 +1,6 @@
 package ru.spbstu.icc.kspt.storage
 
-import ru.spbstu.icc.kspt.storage.StorageManager
+import ru.spbstu.icc.kspt.common.storage.StorageManager
 import java.io.File
 
 class StorageManagerImpl : StorageManager {

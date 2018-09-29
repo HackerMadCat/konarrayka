@@ -1,4 +1,4 @@
-package ru.spbstu.icc.kspt.storage
+package ru.spbstu.icc.kspt.common.storage
 
 import java.io.File
 

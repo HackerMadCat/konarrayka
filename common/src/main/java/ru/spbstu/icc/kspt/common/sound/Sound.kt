@@ -1,5 +1,3 @@
-package ru.spbstu.icc.kspt.sound
+package ru.spbstu.icc.kspt.common.sound
 
-interface Sound {
-
-}
+interface Sound

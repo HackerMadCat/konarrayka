@@ -1,11 +1,11 @@
 package ru.spbstu.icc.kspt.configuration
 
-import ru.spbstu.icc.kspt.ActionImpl
-import ru.spbstu.icc.kspt.ModelImpl
-import ru.spbstu.icc.kspt.RoleImpl
-import ru.spbstu.icc.kspt.ScenarioImpl
-import ru.spbstu.icc.kspt.model.Model
-import ru.spbstu.icc.kspt.configuration.ConfigurationManager
+import ru.spbstu.icc.kspt.model.ActionImpl
+import ru.spbstu.icc.kspt.model.ModelImpl
+import ru.spbstu.icc.kspt.model.RoleImpl
+import ru.spbstu.icc.kspt.model.ScenarioImpl
+import ru.spbstu.icc.kspt.common.configuration.ConfigurationManager
+import ru.spbstu.icc.kspt.common.model.Model
 import java.io.File
 
 class ConfigurationManagerImpl : ConfigurationManager {

@@ -1,4 +1,4 @@
-package ru.spbstu.icc.kspt.sound
+package ru.spbstu.icc.kspt.common.sound
 
 import java.io.File
 

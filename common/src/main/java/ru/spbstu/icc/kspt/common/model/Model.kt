@@ -1,4 +1,4 @@
-package ru.spbstu.icc.kspt.model
+package ru.spbstu.icc.kspt.common.model
 
 interface Model {
     fun getRoles(): List<Role>
