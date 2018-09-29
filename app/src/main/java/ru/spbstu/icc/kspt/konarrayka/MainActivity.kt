@@ -3,8 +3,8 @@ package ru.spbstu.icc.kspt.konarrayka
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import ru.spbstu.icc.kspt.configuration.ConfigurationManagerImpl
-import ru.spbstu.icc.kspt.storage.StorageManagerImpl
+import ru.spbstu.icc.kspt.configuration.ConfigurationManager
+import ru.spbstu.icc.kspt.storage.StorageManager
 import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity() {
@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun generateText() = StringBuilder().run {
         appendln("hello world!")
-        val configurationManager = ConfigurationManagerImpl()
-        val storageManager = StorageManagerImpl()
+        val configurationManager = ConfigurationManager()
+        val storageManager = StorageManager()
         val file = storageManager.findFile()
         val model = configurationManager.loadModel(file)
         val scenario = configurationManager.getScenario(model)
