@@ -2,43 +2,60 @@ package ru.spbstu.icc.kspt.storage
 
 import android.app.Activity
 import android.content.Intent
-import ru.spbstu.icc.kspt.common.getExtra
+import ru.spbstu.icc.kspt.common.CallManager
 import java.io.File
-import java.util.concurrent.atomic.AtomicInteger
 
-class ExternalStorageManager(private val activity: Activity) {
+class ExternalStorageManager(activity: Activity) {
 
-    private val callbacks = HashMap<Int, (File) -> Unit>()
+    private val suggestionExternalStorageCallManager = CallManager<File>(
+            name = SuggestionExternalStorageActivity.FILE_RESULT,
+            activityToCall = SuggestionExternalStorageActivity::class.java,
+            activity = activity
+    )
 
-    private val idGenerator = AtomicInteger()
+    private val manualExternalStorageCallManager = CallManager<File>(
+            name = ManualExternalStorageActivity.FILE_RESULT,
+            activityToCall = ManualExternalStorageActivity::class.java,
+            activity = activity
+    )
 
-    fun getFileForRead(template: Regex? = null, callback: (File) -> Unit) {
+    fun getFileForRead(template: Regex, callback: (File) -> Unit) {
         getFile(StorageActivity.AccessType.READ, template, callback)
     }
 
-    fun getFileForWrite(template: Regex? = null, callback: (File) -> Unit) {
+    fun getFileForWrite(template: Regex, callback: (File) -> Unit) {
         getFile(StorageActivity.AccessType.WRITE, template, callback)
     }
 
-    private fun getFile(type: StorageActivity.AccessType, template: Regex?, callback: (File) -> Unit) {
-        val id = idGenerator.incrementAndGet()
-        callbacks[id] = callback
-        val intent = Intent(activity, StorageActivity::class.java)
-        intent.putExtra(CALLBACK_ID, id)
-        intent.putExtra(StorageActivity.FILE_TEMPLATE, template)
-        intent.putExtra(StorageActivity.ACCESS_TYPE, type)
-        activity.setResult(Activity.RESULT_OK, intent)
-        activity.startActivityForResult(intent, REQUEST_CODE)
+    fun getFileForRead(callback: (File) -> Unit) {
+        getFile(StorageActivity.AccessType.READ, callback)
     }
 
-    fun onActivityResult(data: Intent) {
-        val file = data.getExtra<File>(StorageActivity.FILE_RESULT)
-        val id = data.getExtra<Int>(CALLBACK_ID)
-        callbacks.remove(id)?.invoke(file)
+    fun getFileForWrite(callback: (File) -> Unit) {
+        getFile(StorageActivity.AccessType.WRITE, callback)
     }
+
+    private fun getFile(type: StorageActivity.AccessType, callback: (File) -> Unit) {
+        manualExternalStorageCallManager.call(MANUAL_EXTERNAL_STORAGE_REQUEST_CODE, callback) {
+            putExtra(StorageActivity.ACCESS_TYPE, type)
+        }
+    }
+
+    private fun getFile(type: StorageActivity.AccessType, template: Regex, callback: (File) -> Unit) {
+        suggestionExternalStorageCallManager.call(SUGGESTION_EXTERNAL_STORAGE_REQUEST_CODE, callback) {
+            putExtra(SuggestionExternalStorageActivity.FILE_TEMPLATE, template)
+            putExtra(StorageActivity.ACCESS_TYPE, type)
+        }
+    }
+
+    fun onSuggestionExternalStorageActivityResult(data: Intent) =
+            suggestionExternalStorageCallManager.onActivityResult(data)
+
+    fun onManualExternalStorageActivityResult(data: Intent) =
+            manualExternalStorageCallManager.onActivityResult(data)
 
     companion object {
-        const val CALLBACK_ID = "ru.spbstu.icc.kspt.storage.ExternalStorageManager.CALLBACK_ID"
-        const val REQUEST_CODE = 80
+        const val SUGGESTION_EXTERNAL_STORAGE_REQUEST_CODE = 81
+        const val MANUAL_EXTERNAL_STORAGE_REQUEST_CODE = 82
     }
 }

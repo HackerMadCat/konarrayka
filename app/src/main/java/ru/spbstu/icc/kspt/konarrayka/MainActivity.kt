@@ -10,13 +10,10 @@ import ru.spbstu.icc.kspt.configuration.ConfigurationManager
 import ru.spbstu.icc.kspt.storage.ExternalStorageManager
 import java.io.File
 import java.lang.StringBuilder
-import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
 
     private val externalStorageManager = ExternalStorageManager(this)
-
-    private val logger = Logger.getLogger(javaClass.name)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,16 +44,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != Activity.RESULT_OK) {
-            logger.severe("Wrong activity result")
-            return
-        }
-        if (data == null) {
-            logger.severe("Unregistered intent")
-            return
-        }
+        if (resultCode != Activity.RESULT_OK) return
+        if (data == null) return
         when (requestCode) {
-            ExternalStorageManager.REQUEST_CODE -> externalStorageManager.onActivityResult(data)
+            ExternalStorageManager.SUGGESTION_EXTERNAL_STORAGE_REQUEST_CODE -> {
+                externalStorageManager.onSuggestionExternalStorageActivityResult(data)
+            }
+            ExternalStorageManager.MANUAL_EXTERNAL_STORAGE_REQUEST_CODE -> {
+                externalStorageManager.onManualExternalStorageActivityResult(data)
+            }
         }
     }
 }
