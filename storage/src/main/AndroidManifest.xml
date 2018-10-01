@@ -6,8 +6,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-        <activity android:name=".ManualExternalStorageActivity" />
-        <activity android:name=".SuggestionExternalStorageActivity" />
+        <activity
+            android:name=".ManualExternalStorageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".SuggestionExternalStorageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>
 
 </manifest>
