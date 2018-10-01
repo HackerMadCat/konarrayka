@@ -22,7 +22,7 @@ class ManualExternalStorageActivity : StorageActivity() {
         permissionManager.withPermissions(this) { permissionGranted ->
             val file = getFile() ?: return@withPermissions
             if (permissionGranted) {
-                intent.putExtra(FILE_RESULT, file)
+                intent.putExtra(RESULT, file)
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             } else {
@@ -47,6 +47,6 @@ class ManualExternalStorageActivity : StorageActivity() {
     }
 
     companion object {
-        const val FILE_RESULT = "ru.spbstu.icc.kspt.storage.ManualExternalStorageActivity.FILE_RESULT"
+        const val RESULT = "ru.spbstu.icc.kspt.storage.ManualExternalStorageActivity.RESULT"
     }
 }

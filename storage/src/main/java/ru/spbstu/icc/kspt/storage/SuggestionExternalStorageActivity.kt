@@ -17,9 +17,7 @@ import kotlin.concurrent.thread
 
 class SuggestionExternalStorageActivity : StorageActivity() {
 
-    private val callManager = CallManager<File, ManualExternalStorageActivity>(
-            ManualExternalStorageActivity.FILE_RESULT
-    )
+    private val callManager = CallManager<File, ManualExternalStorageActivity>()
 
     private val template by lazy { getExtra<Regex>(FILE_TEMPLATE) }
 
@@ -73,7 +71,7 @@ class SuggestionExternalStorageActivity : StorageActivity() {
     }
 
     private fun returnFile(file: File) {
-        intent.putExtra(FILE_RESULT, file)
+        intent.putExtra(RESULT, file)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
@@ -88,7 +86,7 @@ class SuggestionExternalStorageActivity : StorageActivity() {
 
     companion object {
         const val FILE_TEMPLATE = "ru.spbstu.icc.kspt.storage.SuggestionExternalStorageActivity.FILE_TEMPLATE"
-        const val FILE_RESULT = "ru.spbstu.icc.kspt.storage.SuggestionExternalStorageActivity.FILE_RESULT"
+        const val RESULT = "ru.spbstu.icc.kspt.storage.SuggestionExternalStorageActivity.RESULT"
         const val REQUEST_CODE = 80
     }
 }
