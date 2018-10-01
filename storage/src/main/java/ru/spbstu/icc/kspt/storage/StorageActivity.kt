@@ -29,12 +29,7 @@ abstract class StorageActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            PermissionManager.PERMISSION_REQUEST -> {
-                permissionManager.onRequestPermissionsResult(permissions, grantResults)
-                return
-            }
-        }
+        permissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     enum class AccessType { READ, WRITE }
