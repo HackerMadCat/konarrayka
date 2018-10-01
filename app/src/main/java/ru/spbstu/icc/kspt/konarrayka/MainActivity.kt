@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun findAction(@Suppress("UNUSED_PARAMETER") view: View) {
-        externalStorageManager.getFileForRead("file-.*\\.txt".toRegex()) {
+        val template = ".*\\.(txt|py|log|cfg|c|cpp|h|kt|java|js|css|html|xml|php|sh)".toRegex()
+        externalStorageManager.getFileForRead(template) {
             val textView = findViewById<TextView>(R.id.logView)
             textView.text = it.readText()
         }
