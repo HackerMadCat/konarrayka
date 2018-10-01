@@ -11,7 +11,7 @@ import ru.spbstu.icc.kspt.common.alert
 
 class ManualExternalStorageActivity : StorageActivity() {
 
-    private val permissionManager = PermissionManager(this)
+    private val permissionManager = PermissionManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,7 @@ class ManualExternalStorageActivity : StorageActivity() {
     }
 
     fun returnAction(@Suppress("UNUSED_PARAMETER") view: View) {
-        permissionManager.withPermissions { permissionGranted ->
+        permissionManager.withPermissions(this) { permissionGranted ->
             val file = getFile() ?: return@withPermissions
             if (permissionGranted) {
                 intent.putExtra(FILE_RESULT, file)

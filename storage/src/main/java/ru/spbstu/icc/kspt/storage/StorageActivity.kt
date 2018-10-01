@@ -7,8 +7,7 @@ import ru.spbstu.icc.kspt.common.getExtra
 
 abstract class StorageActivity : AppCompatActivity() {
 
-    @Suppress("LeakingThis")
-    private val permissionManager = PermissionManager(this)
+    private val permissionManager = PermissionManager()
 
     val accessType by lazy {
         getExtra<AccessType>(ACCESS_TYPE)
@@ -19,7 +18,7 @@ abstract class StorageActivity : AppCompatActivity() {
             AccessType.READ -> Manifest.permission.READ_EXTERNAL_STORAGE
             AccessType.WRITE -> Manifest.permission.WRITE_EXTERNAL_STORAGE
         }
-        permissionManager.withPermissions(permission, apply = apply)
+        permissionManager.withPermissions(this, permission, apply = apply)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

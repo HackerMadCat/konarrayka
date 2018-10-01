@@ -6,7 +6,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 
 
-class PermissionManager(private val activity: Activity) {
+class PermissionManager {
 
     private var onGetPermissionsAction: ((Boolean) -> Unit)? = null
 
@@ -16,15 +16,15 @@ class PermissionManager(private val activity: Activity) {
         onGetPermissionsAction!!(permissionGranted)
     }
 
-    fun withPermissions(vararg permissions: String, apply: (Boolean) -> Unit) {
+    fun withPermissions(activity: Activity, vararg permissions: String, apply: (Boolean) -> Unit) {
         onGetPermissionsAction = { permissionGranted ->
             onGetPermissionsAction = null
             apply(permissionGranted)
         }
-        requestPermissions(permissions)
+        requestPermissions(activity, permissions)
     }
 
-    private fun requestPermissions(permissions: Array<out String>) {
+    private fun requestPermissions(activity: Activity, permissions: Array<out String>) {
         val allPermissionGranted = permissions.all {
             ContextCompat.checkSelfPermission(activity, it) == PackageManager.PERMISSION_GRANTED
         }

@@ -17,10 +17,8 @@ import kotlin.concurrent.thread
 
 class SuggestionExternalStorageActivity : StorageActivity() {
 
-    private val callManager = CallManager<File>(
-            name = ManualExternalStorageActivity.FILE_RESULT,
-            activityToCall = ManualExternalStorageActivity::class.java,
-            activity = this
+    private val callManager = CallManager<File, ManualExternalStorageActivity>(
+            ManualExternalStorageActivity.FILE_RESULT
     )
 
     private val template by lazy { getExtra<Regex>(FILE_TEMPLATE) }
@@ -69,7 +67,7 @@ class SuggestionExternalStorageActivity : StorageActivity() {
     }
 
     fun manualAction(@Suppress("UNUSED_PARAMETER") view: View) {
-        callManager.call(REQUEST_CODE, ::returnFile) {
+        callManager.call(this, REQUEST_CODE, ::returnFile) {
             putExtra(StorageActivity.ACCESS_TYPE, accessType)
         }
     }

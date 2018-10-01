@@ -13,7 +13,7 @@ import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity() {
 
-    private val externalStorageManager = ExternalStorageManager(this)
+    private val externalStorageManager = ExternalStorageManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     fun findAction(@Suppress("UNUSED_PARAMETER") view: View) {
         val template = ".*\\.(txt|py|log|cfg|c|cpp|h|kt|java|js|css|html|xml|php|sh)".toRegex()
-        externalStorageManager.getFileForRead(template) {
+        externalStorageManager.getFileForRead(this, template) {
             val textView = findViewById<TextView>(R.id.logView)
             textView.text = it.readText()
         }
