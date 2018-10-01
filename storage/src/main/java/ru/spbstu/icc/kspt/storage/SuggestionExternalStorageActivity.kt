@@ -24,10 +24,11 @@ class SuggestionExternalStorageActivity : StorageActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_suggestion_external_storage)
+
         configureListView()
     }
 
-    private fun configureListView() {
+    private fun configureListView() = withPermissions {
         val mutex = Any()
         val fileList = ArrayList<File>()
         val pathList = ArrayList<String>()
@@ -38,13 +39,7 @@ class SuggestionExternalStorageActivity : StorageActivity() {
             val file = synchronized(mutex) {
                 fileList[position]
             }
-            withPermissions { permissionGranted ->
-                if (permissionGranted) {
-                    returnFile(file)
-                } else {
-                    alert(getString(R.string.permissionDenied))
-                }
-            }
+            returnFile(file)
         }
         val externalStoragePath = getString(R.string.externalStoragePath)
         thread {

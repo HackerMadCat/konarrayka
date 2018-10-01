@@ -11,24 +11,16 @@ import ru.spbstu.icc.kspt.common.alert
 
 class ManualExternalStorageActivity : StorageActivity() {
 
-    private val permissionManager = PermissionManager()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manual_external_storage)
     }
 
-    fun returnAction(@Suppress("UNUSED_PARAMETER") view: View) {
-        permissionManager.withPermissions(this) { permissionGranted ->
-            val file = getFile() ?: return@withPermissions
-            if (permissionGranted) {
-                intent.putExtra(RESULT, file)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
-            } else {
-                alert(getString(R.string.permissionDenied))
-            }
-        }
+    fun returnAction(@Suppress("UNUSED_PARAMETER") view: View) = withPermissions {
+        val file = getFile() ?: return@withPermissions
+        intent.putExtra(RESULT, file)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     private fun getFile(): File? {
