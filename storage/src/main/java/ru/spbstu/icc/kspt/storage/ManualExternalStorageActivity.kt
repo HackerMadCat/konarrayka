@@ -4,9 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import ru.spbstu.icc.kspt.common.PermissionManager
 import java.io.File
-import ru.spbstu.icc.kspt.common.alert
+import ru.spbstu.icc.kspt.common.toast
 
 
 class ManualExternalStorageActivity : StorageActivity() {
@@ -28,11 +27,11 @@ class ManualExternalStorageActivity : StorageActivity() {
         val path = editText.text.toString()
         val file = File(path)
         if (!file.exists()) {
-            alert("File does not exists")
+            toast("file not exists")
             return null
         }
         if (!file.isFile) {
-            alert("File is not a file")
+            toast("invalid file")
             return null
         }
         return file

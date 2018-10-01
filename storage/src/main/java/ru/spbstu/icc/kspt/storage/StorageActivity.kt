@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import ru.spbstu.icc.kspt.common.PermissionManager
 import ru.spbstu.icc.kspt.common.alert
 import ru.spbstu.icc.kspt.common.getExtra
+import ru.spbstu.icc.kspt.common.toast
 
 abstract class StorageActivity : AppCompatActivity() {
 
@@ -23,6 +24,7 @@ abstract class StorageActivity : AppCompatActivity() {
             if (permissionGranted) {
                 callback()
             } else {
+                toast("permissions denied")
                 alert(getString(R.string.permissionDenied))
             }
         }

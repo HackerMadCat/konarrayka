@@ -3,6 +3,7 @@ package ru.spbstu.icc.kspt.common
 import android.app.Activity
 import android.support.v7.app.AlertDialog
 import java.util.logging.Logger
+import android.widget.Toast
 
 
 fun Activity.alert(message: String, title: String = "Alert") {
@@ -15,4 +16,9 @@ fun Activity.alert(message: String, title: String = "Alert") {
         dialog.dismiss()
     }
     alertDialog.show()
+}
+
+fun Activity.toast(message: String) {
+    val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT)
+    toast.show()
 }

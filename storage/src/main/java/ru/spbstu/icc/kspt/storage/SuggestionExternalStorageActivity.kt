@@ -8,7 +8,6 @@ import android.widget.AdapterView
 import android.widget.ListView
 import ru.spbstu.icc.kspt.common.CallManager
 
-import ru.spbstu.icc.kspt.common.alert
 import ru.spbstu.icc.kspt.common.getExtra
 import java.io.File
 import android.widget.ArrayAdapter
