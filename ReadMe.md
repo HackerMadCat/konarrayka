@@ -1,4 +1,10 @@
-# Техническое задание
+[![Build Status](https://travis-ci.org/DeveloperHacker/konarrayka.svg?branch=master)](https://travis-ci.org/DeveloperHacker/konarrayka)
+
+# Game narration constructor
+
+Constructor for custom game narration like mafia games
+
+## Техническое задание
 
 1. Мобильное android приложение
 1. Возможность задания кастомной фоновой музыки
@@ -16,7 +22,7 @@
 1. Возможность описания таких игр как: Secret Hitler, One night Werewolf, One night Vampires и тп
 1. ***Все выше перечисленные возможности должны быть выполнимы стериотипной блондинкой, которая не умеет читать мануалы***
 
-# Задачи
+## Задачи
 
 1. Модель
 	1. Разработать модель сценария игры
