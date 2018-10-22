@@ -16,7 +16,7 @@ import kotlin.concurrent.thread
 
 class SuggestionExternalStorageActivity : StorageActivity() {
 
-    private val callManager = CallManager<File, ManualExternalStorageActivity>()
+    private val callManager = CallManager<File, ManualExternalStorageActivity>(RESULT)
 
     private val template by lazy { getExtra<Regex>(FILE_TEMPLATE) }
 

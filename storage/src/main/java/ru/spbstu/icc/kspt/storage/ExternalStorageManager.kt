@@ -7,9 +7,11 @@ import java.io.File
 
 class ExternalStorageManager {
 
-    private val suggestionExternalStorageCallManager = CallManager<File, SuggestionExternalStorageActivity>()
+    private val suggestionExternalStorageCallManager =
+            CallManager<File, SuggestionExternalStorageActivity>(SuggestionExternalStorageActivity.RESULT)
 
-    private val manualExternalStorageCallManager = CallManager<File, ManualExternalStorageActivity>()
+    private val manualExternalStorageCallManager =
+            CallManager<File, ManualExternalStorageActivity>(ManualExternalStorageActivity.RESULT)
 
     fun getFileForRead(activity: Activity, template: Regex, callback: (File) -> Unit) {
         getFile(activity, StorageActivity.AccessType.READ, template, callback)
