@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">sound</string>
+    <string name="app_name">Sound</string>
+    <string name="record_sound">Record</string>
+    <string name="choose_file_from_file_system">Select</string>
 </resources>
