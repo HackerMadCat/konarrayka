@@ -52,3 +52,6 @@ before_script:
   - android-wait-for-emulator
   - adb devices
   - adb shell input keyevent 82 &
+# Perhaps will fix build failure
+before_install:
+ - chmod +x gradlew
