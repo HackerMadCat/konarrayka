@@ -1,0 +1,29 @@
+
+\hypersetup{
+	colorlinks = true,
+	linkcolor  = black
+}
+
+\DeclareCaptionFont{white}{\color{white}} 
+
+\sloppy
+
+% Listing description
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\renewcommand{\lstlistingname}{Листинг}
+\lstset{
+	frame=single, % adds a frame around the code
+	rulesepcolor=\color{gray},
+	rulecolor=\color{black},
+	breaklines=true,
+	xleftmargin=2em,
+	extendedchars={true},
+	inputencoding={utf8},
+	basicstyle={\ttfamily \scriptsize},
+	keywordstyle={\rmfamily \bfseries},
+	commentstyle={\rmfamily \itshape},
+	tabsize={2},
+	numbers={left},
+	frame={single},
+	showstringspaces={false},
+}
