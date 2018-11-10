@@ -1,4 +1,4 @@
-llanguage: android
+language: android
 sudo: true
 jdk:
   - oraclejdk8
