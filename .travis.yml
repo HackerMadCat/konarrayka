@@ -56,6 +56,6 @@ cache:
 # Perhaps will fix build failure
 #before_install:
  #- chmod +x gradlew
- script:
- -echo "skipping tests"
-  #install: true
+ #script:
+ #-echo "skipping tests"
+  install: true
