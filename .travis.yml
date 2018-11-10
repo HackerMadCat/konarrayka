@@ -1,4 +1,4 @@
-language: android
+llanguage: android
 sudo: true
 jdk:
   - oraclejdk8
@@ -6,10 +6,10 @@ jdk:
 env:
   global:
     - ANDROID_BUILD_TOOLS_VERSION=28.0.3
-    - ANDROID_ABI=arm64-v8a
+    - ANDROID_ABI=armeabi-v7a
     - ANDROID_TAG=google_apis
     - ANDROID_API_LEVEL=28
-    - EMULATOR_API_LEVEL=25
+    - EMULATOR_API_LEVEL=16
     - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
 
 android:
@@ -52,7 +52,6 @@ before_script:
   - android-wait-for-emulator
   - adb devices
   - adb shell input keyevent 82 &
-  
 # Perhaps will fix build failure
 before_install:
- - chmod +x gradlew
+- chmod +x gradlew
