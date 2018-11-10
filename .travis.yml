@@ -1,5 +1,5 @@
 language: android
-
+sudo: true
 jdk:
   - oraclejdk8
 
@@ -16,6 +16,7 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
+    - tools
     - platform-tools
     - tools
 
@@ -32,7 +33,8 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-$ANDROID_ABI-$ANDROID_TAG-$EMULATOR_API_LEVEL
+    #- sys-img-$ANDROID_ABI-$ANDROID_TAG-$EMULATOR_API_LEVEL
+    - sys-img-armeabi-v7a-android-22
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -41,3 +43,10 @@ before_cache:
 # Perhaps will fix build failure
 before_install:
  - chmod +x gradlew
+ 
+ before_script:
+  # Create and start emulator
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+- adb shell input keyevent 82 &
