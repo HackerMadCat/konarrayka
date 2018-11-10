@@ -58,4 +58,4 @@ cache:
  #- chmod +x gradlew
  script:
  -echo "skipping tests"
-  install: true
+  #install: true
