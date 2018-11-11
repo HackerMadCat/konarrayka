@@ -1,25 +1,39 @@
 package ru.spbstu.icc.kspt.konarrayka
 
-
-import android.support.v7.app.AppCompatActivity;
-
-import android.support.v4.view.ViewPager
 import android.os.Bundle
-import android.view.View
+import android.app.Activity
+import android.content.DialogInterface
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.OrientationHelper
+import android.support.v7.widget.RecyclerView
+import android.widget.Button
+import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+
+
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewPager  = findViewById<View>(R.id.viewPager) as ViewPager
 
-        lateinit var viewPagerAdapter : ViewPagerAdapter
+        val posts: ArrayList<String> = ArrayList()
 
-        viewPager.adapter = viewPagerAdapter
+        for (i in 1..5){
+            posts.add("Game $i")
+        }
 
+        posts.add("New Game")
+
+        val buttonNext: Button;
+
+
+        recyclerView.layoutManager = LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false) as RecyclerView.LayoutManager?
+        recyclerView.adapter = PostsAdapter(posts)
     }
-    }
+
+}
