@@ -38,17 +38,6 @@ class CallManager<T>(private val name: String, private val activityToCall: Class
 
     companion object {
         const val CALLBACK_ID = "ru.spbstu.icc.kspt.storage.ExternalStorageManager.CALLBACK_ID"
-        const val PROPERTY_NAME_OF_EXTRA_RESULT = "RESULT"
-
-        inline operator fun <T, reified A : Activity> invoke(): CallManager<T> {
-            val companion = A::class.companionObject
-                    ?: throw IllegalArgumentException("Class ${A::class}.Companion not found")
-            val companionProp = companion.memberProperties.find { it.name == PROPERTY_NAME_OF_EXTRA_RESULT }
-                    ?: throw IllegalArgumentException("Property $companion.$PROPERTY_NAME_OF_EXTRA_RESULT not found")
-            val name = companionProp.getter.call(companionProp) as? String
-                    ?: throw IllegalArgumentException("Property $companion.$PROPERTY_NAME_OF_EXTRA_RESULT must have a type String")
-            return CallManager(name, A::class.java)
-        }
 
         inline operator fun <T, reified A : Activity> invoke(name: String) =
                 CallManager<T>(name, A::class.java)
