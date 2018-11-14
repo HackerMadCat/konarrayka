@@ -27,6 +27,7 @@ class PostsAdapter(val posts: ArrayList<String> ) : RecyclerView.Adapter<PostsAd
 
     override fun getItemCount() = posts.size
 
+
     fun onClick(v: View) {
         v.context.startActivity(Intent(v.context, BuilderActivity::class.java))
     }
