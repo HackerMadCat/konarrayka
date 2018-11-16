@@ -1,4 +1,4 @@
-package ru.spbstu.icc.kspt.builder
+package ru.spbstu.icc.kspt.configuration
 
 import android.support.annotation.LayoutRes
 import android.view.LayoutInflater

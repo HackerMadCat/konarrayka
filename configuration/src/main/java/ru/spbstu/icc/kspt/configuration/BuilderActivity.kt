@@ -1,4 +1,4 @@
-package ru.spbstu.icc.kspt.builder
+package ru.spbstu.icc.kspt.configuration
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,12 +7,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.DragEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_builder.*
-import ru.spbstu.icc.kspt.builder.adapters.ActionsAdapter
-import ru.spbstu.icc.kspt.builder.adapters.ModelsAdapter
-import ru.spbstu.icc.kspt.builder.adapters.RolesAdapter
-import ru.spbstu.icc.kspt.builder.models.Action
-import ru.spbstu.icc.kspt.builder.models.Model
-import ru.spbstu.icc.kspt.builder.models.Role
+import ru.spbstu.icc.kspt.configuration.adapters.ActionsAdapter
+import ru.spbstu.icc.kspt.configuration.adapters.ModelsAdapter
+import ru.spbstu.icc.kspt.configuration.adapters.RolesAdapter
+import ru.spbstu.icc.kspt.configuration.models.Action
+import ru.spbstu.icc.kspt.configuration.models.Model
+import ru.spbstu.icc.kspt.configuration.models.Role
 
 class BuilderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

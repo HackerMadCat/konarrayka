@@ -1,1 +1,1 @@
-include ':app', ':storage', ':common', ':sound', ':model', ':configuration', ':builder'
+include ':app', ':storage', ':common', ':sound', ':model', ':configuration'

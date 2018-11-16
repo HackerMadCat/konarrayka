@@ -1,7 +1,6 @@
-package ru.spbstu.icc.kspt.builder.adapters
+package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.content.ClipData
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.support.v7.widget.RecyclerView
 import android.view.GestureDetector
@@ -9,19 +8,19 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.item_role.view.*
-import ru.spbstu.icc.kspt.builder.R
-import ru.spbstu.icc.kspt.builder.inflate
-import ru.spbstu.icc.kspt.builder.models.Role
+import kotlinx.android.synthetic.main.item_action.view.*
+import ru.spbstu.icc.kspt.configuration.R
+import ru.spbstu.icc.kspt.configuration.inflate
+import ru.spbstu.icc.kspt.configuration.models.Action
 
-class RolesAdapter(private val roles: List<Role>) : RecyclerView.Adapter<RolesAdapter.RoleVH>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RoleVH(parent.inflate(R.layout.item_role))
+class ActionsAdapter(private val actions: List<Action>) : RecyclerView.Adapter<ActionsAdapter.ActionVH>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ActionVH(parent.inflate(R.layout.item_action))
 
-    override fun onBindViewHolder(holder: RoleVH, position: Int) = holder.bind(roles[position])
+    override fun onBindViewHolder(holder: ActionVH, position: Int) = holder.bind(actions[position])
 
-    override fun getItemCount() = roles.size
+    override fun getItemCount() = actions.size
 
-    class RoleVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnTouchListener {
+    class ActionVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnTouchListener {
 
         private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
@@ -31,7 +30,7 @@ class RolesAdapter(private val roles: List<Role>) : RecyclerView.Adapter<RolesAd
             }
 
             override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
-                showEditRoleDialog()
+                showEditActionDialog()
                 return true
             }
 
@@ -46,12 +45,11 @@ class RolesAdapter(private val roles: List<Role>) : RecyclerView.Adapter<RolesAd
 
         override fun onTouch(v: View, event: MotionEvent) = gestureDetector.onTouchEvent(event)
 
-        fun bind(role: Role) {
+        fun bind(action: Action) {
             with(itemView) {
-                view_badge.background = ColorDrawable(role.color)
-                tv_name.text = role.name
-                tag = adapterPosition
-                setOnTouchListener(this@RoleVH)
+                tv_text.text = action.text
+                tv_text.tag = adapterPosition
+                setOnTouchListener(this@ActionVH)
             }
         }
 
@@ -75,7 +73,7 @@ class RolesAdapter(private val roles: List<Role>) : RecyclerView.Adapter<RolesAd
             (itemView.parent as ViewGroup).layoutParams = lp
         }
 
-        private fun showEditRoleDialog() {
+        private fun showEditActionDialog() {
             TODO()
         }
     }

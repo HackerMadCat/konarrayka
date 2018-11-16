@@ -1,4 +1,4 @@
-package ru.spbstu.icc.kspt.builder.adapters
+package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.RecyclerView
@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_model.view.*
 import kotlinx.android.synthetic.main.item_role.view.*
-import ru.spbstu.icc.kspt.builder.R
-import ru.spbstu.icc.kspt.builder.inflate
-import ru.spbstu.icc.kspt.builder.models.Model
-import ru.spbstu.icc.kspt.builder.models.Role
+import ru.spbstu.icc.kspt.configuration.R
+import ru.spbstu.icc.kspt.configuration.inflate
+import ru.spbstu.icc.kspt.configuration.models.Model
+import ru.spbstu.icc.kspt.configuration.models.Role
 
 class ModelsAdapter(private val models: MutableList<Model>, private val roles: List<Role>) : RecyclerView.Adapter<ModelsAdapter.ModelVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelVH = ModelVH(parent.inflate(R.layout.item_model))
