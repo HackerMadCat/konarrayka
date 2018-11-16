@@ -32,7 +32,6 @@ dependencies {
     implementation project(":common")
     implementation project(":storage")
     implementation project(":sound")
-    implementation project(":model")
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
