@@ -1,6 +1,7 @@
 package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.content.ClipData
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.support.v7.widget.RecyclerView
@@ -10,18 +11,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.item_role.view.*
+import ru.spbstu.icc.kspt.configuration.ConditionElement
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
-import ru.spbstu.icc.kspt.configuration.models.Role
 
-class RolesAdapter(private val roles: List<Role>) : RecyclerView.Adapter<RolesAdapter.RoleVH>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RoleVH(parent.inflate(R.layout.item_role))
+class ConditionElementAdapter(
+        private val conditionElements: List<ConditionElement>
+) : RecyclerView.Adapter<ConditionElementAdapter.HeroVH>() {
 
-    override fun onBindViewHolder(holder: RoleVH, position: Int) = holder.bind(roles[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            HeroVH(parent.inflate(R.layout.item_role))
 
-    override fun getItemCount() = roles.size
+    override fun onBindViewHolder(holder: HeroVH, position: Int) =
+            holder.bind(conditionElements[position])
 
-    class RoleVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnTouchListener {
+    override fun getItemCount() = conditionElements.size
+
+    class HeroVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnTouchListener {
 
         private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
@@ -46,12 +52,20 @@ class RolesAdapter(private val roles: List<Role>) : RecyclerView.Adapter<RolesAd
 
         override fun onTouch(v: View, event: MotionEvent) = gestureDetector.onTouchEvent(event)
 
-        fun bind(role: Role) {
+        fun bind(conditionElement: ConditionElement) {
             with(itemView) {
-                view_badge.background = ColorDrawable(role.color)
-                tv_name.text = role.name
+                val color = when (conditionElement) {
+                    is ConditionElement.HeroCE -> conditionElement.hero.color
+                    is ConditionElement.OrCE -> Color.GRAY
+                }
+                val name = when (conditionElement) {
+                    is ConditionElement.HeroCE -> conditionElement.hero.name
+                    is ConditionElement.OrCE -> "OR"
+                }
+                view_badge.background = ColorDrawable(color)
+                tv_name.text = name
                 tag = adapterPosition
-                setOnTouchListener(this@RoleVH)
+                setOnTouchListener(this@HeroVH)
             }
         }
 
