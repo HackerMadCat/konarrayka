@@ -1,13 +1,12 @@
 package ru.spbstu.icc.kspt.configuration.model
 
-import ru.spbstu.icc.kspt.sound.Sound
 import java.io.File
 
 data class Action(
         val icon: File,
         val name: String,
         val description: String,
-        val voices: List<Sound>,
+        val voices: List<File>,
         val duration: Duration
 ) {
     override fun equals(other: Any?): Boolean {
