@@ -16,9 +16,6 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-//permission code
-private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
-
 class RecordSound : AppCompatActivity() {
     private var filename: String? = null
     private var mediaRecorder: MediaRecorder? = null
@@ -110,4 +107,11 @@ class RecordSound : AppCompatActivity() {
         mediaPlayer = null
     }
 
+
+    companion object {
+        //permission code
+        private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
+        const val RESULT = "ru.spbstu.icc.kspt.sound.RecordSound.RESULT"
+        const val SOUND_NAME = "ru.spbstu.icc.kspt.sound.RecordSound.SOUND_NAME"
+    }
 }
