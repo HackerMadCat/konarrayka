@@ -1,10 +1,8 @@
 package ru.spbstu.icc.kspt.configuration
 
-import android.graphics.Color
 import ru.spbstu.icc.kspt.common.random
 import ru.spbstu.icc.kspt.common.randomDrop
 import ru.spbstu.icc.kspt.configuration.model.*
-import ru.spbstu.icc.kspt.sound.Sound
 import java.io.File
 import java.util.*
 import java.util.logging.Level
@@ -98,10 +96,8 @@ object RandomModelGenerator {
         }
     }
 
-    private fun RandomContext.nextSound(): Sound {
-        val file = nextFile("mp3")
-        val volume = random.nextInt(100)
-        return Sound(file, volume)
+    private fun RandomContext.nextSound(): File {
+        return nextFile("mp3")
     }
 
     private fun RandomContext.nextIcon(): File {

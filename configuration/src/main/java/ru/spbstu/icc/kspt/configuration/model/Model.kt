@@ -1,6 +1,5 @@
 package ru.spbstu.icc.kspt.configuration.model
 
-import ru.spbstu.icc.kspt.sound.Sound
 import java.io.File
 
 data class Model(
@@ -8,7 +7,7 @@ data class Model(
         val icon: File,
         val name: String,
         val rules: Rules,
-        val sounds: List<Sound>,
+        val sounds: List<File>,
         val setups: List<Setup>
 ) {
     val timeVariables: Set<Duration.Variable> by lazy {

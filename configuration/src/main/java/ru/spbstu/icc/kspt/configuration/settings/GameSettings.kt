@@ -3,11 +3,10 @@ package ru.spbstu.icc.kspt.configuration.settings
 import ru.spbstu.icc.kspt.common.random
 import ru.spbstu.icc.kspt.configuration.model.Duration
 import ru.spbstu.icc.kspt.configuration.model.Model
-import ru.spbstu.icc.kspt.configuration.model.Setup
-import ru.spbstu.icc.kspt.sound.Sound
+import java.io.File
 
 data class GameSettings(
-        val sound: Sound?,
+        val sound: File?,
         val timeVariables: Map<Duration.Variable, Duration.Time>
 ) {
     constructor(model: Model) : this(
