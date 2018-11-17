@@ -11,12 +11,14 @@ import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.item_action.view.*
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
-import ru.spbstu.icc.kspt.configuration.models.Action
+import ru.spbstu.icc.kspt.configuration.model.Action
 
 class ActionsAdapter(private val actions: List<Action>) : RecyclerView.Adapter<ActionsAdapter.ActionVH>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ActionVH(parent.inflate(R.layout.item_action))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            ActionVH(parent.inflate(R.layout.item_action))
 
-    override fun onBindViewHolder(holder: ActionVH, position: Int) = holder.bind(actions[position])
+    override fun onBindViewHolder(holder: ActionVH, position: Int) =
+            holder.bind(actions[position])
 
     override fun getItemCount() = actions.size
 
@@ -47,7 +49,7 @@ class ActionsAdapter(private val actions: List<Action>) : RecyclerView.Adapter<A
 
         fun bind(action: Action) {
             with(itemView) {
-                tv_text.text = action.text
+                tv_text.text = action.name
                 tv_text.tag = adapterPosition
                 setOnTouchListener(this@ActionVH)
             }
