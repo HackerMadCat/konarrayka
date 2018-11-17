@@ -22,13 +22,18 @@ object RandomModelGenerator {
     }
 
     private fun RandomContext.nextModel(): Model {
-        val id = random.nextInt(1000)
-        val icon = nextIcon()
-        val name = random.nextString(10)
+        val header = nextModelHeader()
         val rules = nextRules()
         val sounds = nextRandomList(10) { nextSound() }
         val setups = nextRandomList(10) { nextSetup(rules.heroes) }
-        return Model(id, icon, name, rules, sounds, setups)
+        return Model(header, rules, sounds, setups)
+    }
+
+    private fun RandomContext.nextModelHeader(): ModelHeader {
+        val id = random.nextInt(1000)
+        val icon = nextIcon()
+        val name = random.nextString(10)
+        return ModelHeader(id, icon, name)
     }
 
     private fun RandomContext.nextRules(): Rules {
