@@ -13,14 +13,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import ru.spbstu.icc.kspt.configuration.model.Action;
-import ru.spbstu.icc.kspt.configuration.model.ConditionalAction;
 import ru.spbstu.icc.kspt.configuration.model.Hero;
 import ru.spbstu.icc.kspt.configuration.model.Model;
-import ru.spbstu.icc.kspt.configuration.model.Setup;
 
 public class ConfigurationManager {
     private Context context;
@@ -48,55 +45,24 @@ public class ConfigurationManager {
     private Set<File> populateSounds(Model model) {
         Set<File> sounds = new HashSet<>(model.getSounds());
 
-        if (model.getRules() != null) {
-            Set<Action> actions = model.getRules().getActions();
-            for (Action action : actions) {
-                sounds.addAll(action.getVoices());
-            }
-
-            List<ConditionalAction> conditionalActions = model.getRules().getConditionalActions();
-            for (ConditionalAction ca : conditionalActions) {
-                if (ca.getAction() != null) {
-                    sounds.addAll(ca.getAction().getVoices());
-                }
-            }
+        Set<Action> actions = model.getRules().getActions();
+        for (Action action : actions) {
+            sounds.addAll(action.getVoices());
         }
+
         return sounds;
     }
 
     private Set<File> populateIcons(Model model) {
         Set<File> icons = new HashSet<>();
-        if (model.getHeader() != null) {
-            icons.add(model.getHeader().getIcon());
+        icons.add(model.getHeader().getIcon());
+
+        for (Hero hero : model.getRules().getHeroes()) {
+            icons.add(hero.getIcon());
         }
 
-        if (model.getRules() != null) {
-            for (Hero hero : model.getRules().getHeroes()) {
-                icons.add(hero.getIcon());
-            }
-
-            for (Action action : model.getRules().getActions()) {
-                icons.add(action.getIcon());
-            }
-
-            for (ConditionalAction ca : model.getRules().getConditionalActions()) {
-                if (ca.getAction() != null) {
-                    icons.add(ca.getAction().getIcon());
-                }
-                if (ca.getCondition() != null) {
-                    for (Set<Hero> setHeroes : ca.getCondition().getDisjunctions()) {
-                        for (Hero hero : setHeroes) {
-                            icons.add(hero.getIcon());
-                        }
-                    }
-                }
-            }
-        }
-
-        for (Setup setup : model.getSetups()) {
-            for (Hero hero : setup.getHeroes()) {
-                icons.add(hero.getIcon());
-            }
+        for (Action action : model.getRules().getActions()) {
+            icons.add(action.getIcon());
         }
 
         return icons;
