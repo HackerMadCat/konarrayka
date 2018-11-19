@@ -7,7 +7,7 @@ import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_model.view.*
-import kotlinx.android.synthetic.main.item_role.view.*
+import kotlinx.android.synthetic.main.layout_role.view.*
 import ru.spbstu.icc.kspt.common.add
 import ru.spbstu.icc.kspt.configuration.ConditionElement
 import ru.spbstu.icc.kspt.configuration.R
@@ -60,7 +60,7 @@ class ConditionalActionsAdapter(
                         is ConditionElement.HeroCE -> conditionElement.hero.color
                         is ConditionElement.OrCE -> Color.GRAY
                     }
-                    roleView.view_badge.background = ColorDrawable(color)
+                    roleView.view_role.background = ColorDrawable(color)
                     roles_container.addView(roleView)
                 }
                 tag = adapterPosition
