@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.support.v7.widget.RecyclerView
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -12,22 +11,25 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.item_role.view.*
 import ru.spbstu.icc.kspt.configuration.ConditionElement
+import ru.spbstu.icc.kspt.configuration.ConditionElement.*
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
+import android.support.v7.widget.RecyclerView.Adapter
+import android.support.v7.widget.RecyclerView.ViewHolder
+import ru.spbstu.icc.kspt.configuration.mutableModel.MutableRules
 
-class ConditionElementAdapter(
-        private val conditionElements: List<ConditionElement>
-) : RecyclerView.Adapter<ConditionElementAdapter.HeroVH>() {
+typealias HeroVH = ConditionElementAdapter.HeroVH
 
+class ConditionElementAdapter(val rules: MutableRules) : Adapter<HeroVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             HeroVH(parent.inflate(R.layout.item_role))
 
     override fun onBindViewHolder(holder: HeroVH, position: Int) =
-            holder.bind(conditionElements[position])
+            holder.bind(rules.conditionElements[position])
 
-    override fun getItemCount() = conditionElements.size
+    override fun getItemCount() = rules.conditionElements.size
 
-    class HeroVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnTouchListener {
+    class HeroVH(itemView: View) : ViewHolder(itemView), View.OnTouchListener {
 
         private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
@@ -55,12 +57,12 @@ class ConditionElementAdapter(
         fun bind(conditionElement: ConditionElement) {
             with(itemView) {
                 val color = when (conditionElement) {
-                    is ConditionElement.HeroCE -> conditionElement.hero.color
-                    is ConditionElement.OrCE -> Color.GRAY
+                    is HeroCE -> conditionElement.hero.color
+                    is OrCE -> Color.GRAY
                 }
                 val name = when (conditionElement) {
-                    is ConditionElement.HeroCE -> conditionElement.hero.name
-                    is ConditionElement.OrCE -> "OR"
+                    is HeroCE -> conditionElement.hero.name
+                    is OrCE -> "OR"
                 }
                 view_badge.background = ColorDrawable(color)
                 tv_name.text = name

@@ -29,11 +29,11 @@ object RandomModelGenerator {
         return Model(header, rules, sounds, setups)
     }
 
-    private fun RandomContext.nextModelHeader(): ModelHeader {
+    private fun RandomContext.nextModelHeader(): Header {
         val id = random.nextInt(1000)
         val icon = nextIcon()
         val name = random.nextString(10)
-        return ModelHeader(id, icon, name)
+        return Header(id, icon, name)
     }
 
     private fun RandomContext.nextRules(): Rules {

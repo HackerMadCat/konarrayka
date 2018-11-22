@@ -2,55 +2,54 @@ package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.Adapter
+import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_model.view.*
 import kotlinx.android.synthetic.main.layout_role.view.*
-import ru.spbstu.icc.kspt.common.add
 import ru.spbstu.icc.kspt.configuration.ConditionElement
+import ru.spbstu.icc.kspt.configuration.ConditionElement.*
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
-import ru.spbstu.icc.kspt.configuration.model.Condition
-import ru.spbstu.icc.kspt.configuration.model.ConditionalAction
-import ru.spbstu.icc.kspt.configuration.model.Hero
+import ru.spbstu.icc.kspt.configuration.mutableModel.MutableConditionalAction
+import ru.spbstu.icc.kspt.configuration.mutableModel.MutableRules
 
-class ConditionalActionsAdapter(
-        private val conditionalActions: MutableList<ConditionalAction>,
-        private val heroes: List<Hero>
-) : RecyclerView.Adapter<ConditionalActionsAdapter.ConditionalActionVH>() {
+typealias ConditionalActionVH = ConditionalActionsAdapter.ConditionalActionVH
+
+class ConditionalActionsAdapter(val rules: MutableRules) : Adapter<ConditionalActionVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConditionalActionVH =
             ConditionalActionVH(parent.inflate(R.layout.item_model))
 
     override fun onBindViewHolder(holder: ConditionalActionVH, position: Int) =
-            holder.bind(conditionalActions[position])
+            holder.bind(rules.conditionalActions[position])
 
-    override fun getItemCount() = conditionalActions.size
+    override fun getItemCount() = rules.conditionalActions.size
 
-    fun addConditionalAction(conditionalAction: ConditionalAction) {
-        conditionalActions.add(conditionalAction)
-        notifyItemInserted(conditionalActions.size)
+    fun addConditionalAction(conditionalAction: MutableConditionalAction) {
+        rules.conditionalActions.add(conditionalAction)
+        notifyItemInserted(rules.conditionalActions.size)
     }
 
-    inner class ConditionalActionVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnDragListener {
+    inner class ConditionalActionVH(itemView: View) : ViewHolder(itemView), View.OnDragListener {
         override fun onDrag(v: View, event: DragEvent): Boolean {
             val source = event.localState as View
             if (event.action == DragEvent.ACTION_DROP && source.id == R.id.role_container) {
-                val hero = heroes[source.tag as Int]
-                val conditionalAction = conditionalActions[v.tag as Int]
+                val conditionElement = rules.conditionElements[source.tag as Int]
+                val conditionalAction = rules.conditionalActions[v.tag as Int]
                 val condition = conditionalAction.condition
-                val newConditionalAction = conditionalAction.copy(
-                        condition = condition.addHero(hero)
-                )
-                conditionalActions[v.tag as Int] = newConditionalAction
+                when (conditionElement) {
+                    is HeroCE -> condition.addHero(conditionElement.hero)
+                    is OrCE -> condition.addOr()
+                }
                 notifyItemChanged(v.tag as Int)
             }
             return true
         }
 
-        fun bind(conditionalAction: ConditionalAction) {
+        fun bind(conditionalAction: MutableConditionalAction) {
             with(itemView) {
                 tv_action.text = conditionalAction.action.name
                 roles_container.removeAllViews()
@@ -67,29 +66,5 @@ class ConditionalActionsAdapter(
                 setOnDragListener(this@ConditionalActionVH)
             }
         }
-    }
-
-    companion object {
-        fun Condition.addOr(): Condition {
-            return copy(disjunctions = disjunctions.add(setOf()))
-        }
-
-        fun Condition.addHero(hero: Hero): Condition {
-            val conjunction = disjunctions.lastOrNull() ?: return Condition(listOf(setOf(hero)))
-            val firstDisjunctions = disjunctions.dropLast(1)
-            val newConjunction = conjunction.add(hero).toSet()
-            val newDisjunctions = firstDisjunctions.add(newConjunction)
-            return copy(disjunctions = newDisjunctions)
-        }
-
-        fun Condition.flatten(): List<ConditionElement> =
-                disjunctions.map { conjunction ->
-                    conjunction.map { hero ->
-                        ConditionElement.HeroCE(hero)
-                    }
-                }.map {
-                    it + listOf(ConditionElement.OrCE)
-                }.flatten().dropLast(1)
-
     }
 }

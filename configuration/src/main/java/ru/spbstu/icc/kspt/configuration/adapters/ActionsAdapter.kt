@@ -2,7 +2,6 @@ package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.content.ClipData
 import android.os.Build
-import android.support.v7.widget.RecyclerView
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -12,17 +11,22 @@ import kotlinx.android.synthetic.main.item_action.view.*
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
 import ru.spbstu.icc.kspt.configuration.model.Action
+import android.support.v7.widget.RecyclerView.Adapter
+import android.support.v7.widget.RecyclerView.ViewHolder
+import ru.spbstu.icc.kspt.configuration.mutableModel.MutableRules
 
-class ActionsAdapter(private val actions: List<Action>) : RecyclerView.Adapter<ActionsAdapter.ActionVH>() {
+typealias ActionVH = ActionsAdapter.ActionVH
+
+class ActionsAdapter(val rules: MutableRules) : Adapter<ActionVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ActionVH(parent.inflate(R.layout.item_action))
 
     override fun onBindViewHolder(holder: ActionVH, position: Int) =
-            holder.bind(actions[position])
+            holder.bind(rules.actions[position])
 
-    override fun getItemCount() = actions.size
+    override fun getItemCount() = rules.actions.size
 
-    class ActionVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnTouchListener {
+    class ActionVH(itemView: View) : ViewHolder(itemView), View.OnTouchListener {
 
         private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 

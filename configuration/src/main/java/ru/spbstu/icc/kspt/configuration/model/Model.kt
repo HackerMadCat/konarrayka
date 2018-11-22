@@ -3,7 +3,7 @@ package ru.spbstu.icc.kspt.configuration.model
 import java.io.File
 
 data class Model(
-        val header: ModelHeader,
+        val header: Header,
         val rules: Rules,
         val sounds: List<File>,
         val setups: List<Setup>
