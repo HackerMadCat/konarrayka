@@ -28,11 +28,11 @@ class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
     /**
      * Indicator width.
      */
-    private val mIndicatorItemLength = DP * 16
+    private val mIndicatorItemLength = DP * 20
     /**
      * Padding between indicators.
      */
-    private val mIndicatorItemPadding = DP * 16
+    private val mIndicatorItemPadding = DP * 30
 
     /**
      * Some more natural animation interpolation

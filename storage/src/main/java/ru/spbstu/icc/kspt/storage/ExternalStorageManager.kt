@@ -51,11 +51,16 @@ class ExternalStorageManager {
         }
     }
 
-    fun onSuggestionExternalStorageActivityResult(data: Intent) =
-            suggestionExternalStorageCallManager.onActivityResult(data)
-
-    fun onManualExternalStorageActivityResult(data: Intent) =
-            manualExternalStorageCallManager.onActivityResult(data)
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode != Activity.RESULT_OK) return
+        if (data == null) return
+        when (requestCode) {
+            SUGGESTION_EXTERNAL_STORAGE_REQUEST_CODE ->
+                suggestionExternalStorageCallManager.onActivityResult(data)
+            MANUAL_EXTERNAL_STORAGE_REQUEST_CODE ->
+                manualExternalStorageCallManager.onActivityResult(data)
+        }
+    }
 
     companion object {
         const val SUGGESTION_EXTERNAL_STORAGE_REQUEST_CODE = 81

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.content.Intent
+import ru.spbstu.icc.kspt.configuration.BuilderActivity
 
 
 class PostsAdapter(val posts: ArrayList<String> ) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
@@ -19,15 +20,16 @@ class PostsAdapter(val posts: ArrayList<String> ) : RecyclerView.Adapter<PostsAd
         val firstName : TextView = itemView.findViewById(R.id.firstName)
         init {
             itemView.setOnClickListener{
-                val intent = Intent(itemView.context, MainActivity::class.java)
+                val intent = Intent(itemView.context, BuilderActivity::class.java)
                 itemView.context.startActivity(intent)
             }
         }}
 
     override fun getItemCount() = posts.size
 
+
     fun onClick(v: View) {
-        v.context.startActivity(Intent(v.context, MainActivity::class.java))
+        v.context.startActivity(Intent(v.context, BuilderActivity::class.java))
     }
 
 
