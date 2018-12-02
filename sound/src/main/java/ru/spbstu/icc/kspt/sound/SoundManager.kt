@@ -2,18 +2,25 @@ package ru.spbstu.icc.kspt.sound
 
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import ru.spbstu.icc.kspt.common.CallManager
 
 class SoundManager(private val activity: Activity) {
+    private lateinit var mediaPlayer: MediaPlayer
 
     private val callManager = CallManager<Sound, RecordSound>(RecordSound.RESULT)
 
     fun play(sound: Sound) {
-        TODO()
+        mediaPlayer = MediaPlayer().apply {
+            setDataSource(sound.file.path)
+            prepare()
+            start()
+        }
     }
 
-    fun stop(sound: Sound) {
-        TODO()
+    fun stop() {
+        mediaPlayer.stop()
+        mediaPlayer.release()
     }
 
     fun record(name: String, callback: (Sound) -> Unit) {
@@ -23,7 +30,8 @@ class SoundManager(private val activity: Activity) {
     }
 
     fun getDuration(sound: Sound): Int {
-        TODO()
+        mediaPlayer = MediaPlayer().apply{setDataSource(sound.file.path)}
+        return mediaPlayer.duration
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -37,4 +45,3 @@ class SoundManager(private val activity: Activity) {
     companion object {
         const val REQUEST_CODE = 8931
     }
-}
