@@ -105,7 +105,7 @@ class RecordSound : AppCompatActivity() {
     }
 
     //release recorder and stop recording
-    private fun recordStop (v:View){
+    fun recordStop (v:View){
         mediaRecorder.apply {
             stop()
             release()
@@ -115,7 +115,7 @@ class RecordSound : AppCompatActivity() {
     }
 
     //set path to the file to listening and start playing
-    private fun playStart (v:View){
+    fun playStart (v:View){
         mediaPlayer = MediaPlayer().apply {
             try {
                 setDataSource(file?.path)
@@ -133,7 +133,7 @@ class RecordSound : AppCompatActivity() {
     }
 
     //stop playing file
-    private fun playStop (v:View){
+    fun playStop (v:View){
         mediaPlayer.release()
         timer.cancel()
         changeButtonTaskAndDrawable(stop_button,"play","play")
