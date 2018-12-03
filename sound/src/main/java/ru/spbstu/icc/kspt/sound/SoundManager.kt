@@ -23,10 +23,8 @@ class SoundManager(private val activity: Activity) {
         mediaPlayer.release()
     }
 
-    fun record(name: String, callback: (Sound) -> Unit) {
-        callManager.call(activity, REQUEST_CODE, callback) {
-            putExtra(RecordSound.SOUND_NAME, name)
-        }
+    fun record(callback: (Sound) -> Unit) {
+        callManager.call(activity, REQUEST_CODE, callback)
     }
 
     fun getDuration(sound: Sound): Int {

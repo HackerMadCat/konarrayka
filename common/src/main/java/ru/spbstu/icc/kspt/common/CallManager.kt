@@ -16,6 +16,10 @@ class CallManager<T>(private val name: String, private val activityToCall: Class
 
     private val idGenerator = AtomicInteger()
 
+    fun call(activity: Activity, requestCode: Int, callback: (T) -> Unit) {
+        call(activity, requestCode, callback) {}
+    }
+
     fun call(activity: Activity, requestCode: Int, callback: (T) -> Unit, configure: Intent.() -> Unit) {
         val id = idGenerator.incrementAndGet()
         callbacks[id] = callback

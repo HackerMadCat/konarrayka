@@ -77,7 +77,7 @@ class RecordSound : AppCompatActivity() {
     }
 
     //release the media recorder, set record param and start record
-    private fun recordStart(v:View) {
+    fun recordStart(v:View) {
         if (editText.text.isEmpty()) {
             DurationText.text = "FieldIsEmpty"
             Log.e("EditableTest","EditableIsEmpty================================")
@@ -152,6 +152,5 @@ class RecordSound : AppCompatActivity() {
         //permission code
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
         const val RESULT = "ru.spbstu.icc.kspt.sound.RecordSound.RESULT"
-        const val SOUND_NAME = "ru.spbstu.icc.kspt.sound.RecordSound.SOUND_NAME"
     }
 }
