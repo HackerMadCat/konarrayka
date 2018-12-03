@@ -60,7 +60,8 @@ class RecordSound : AppCompatActivity() {
                     this.finish()
                     return true
                 }
-                intent.putExtra(RESULT,file?.path)
+                val sound = Sound(file!!, 100)
+                intent.putExtra(RESULT, sound)
                 setResult(Activity.RESULT_OK,intent)
                 this.finish()
                 return true

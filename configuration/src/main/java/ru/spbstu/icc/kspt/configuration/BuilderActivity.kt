@@ -44,5 +44,7 @@ class BuilderActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val actionAdapter = rv_actions.adapter as ActionsAdapter
         actionAdapter.onActivityResult(requestCode, resultCode, data)
+        val conditionAdapter = rv_roles.adapter as ConditionElementAdapter
+        conditionAdapter.onActivityResult(requestCode, resultCode, data)
     }
 }

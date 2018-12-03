@@ -34,8 +34,7 @@ class CallManager<T>(private val name: String, private val activityToCall: Class
         val extras = data.extras ?: return
         val result = extras.get(name) ?: return
         val id = data.getExtra<Int>(CALLBACK_ID)
-        val callback = callbacks.remove(id)
-                ?: throw IllegalArgumentException("Callback id $id was not produced by $this")
+        val callback = callbacks.remove(id) ?: return
         @Suppress("UNCHECKED_CAST")
         callback(result as T)
     }
