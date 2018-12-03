@@ -26,7 +26,7 @@ class RecordSound : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private var permissionToRecord = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
-    private lateinit var file:File
+    private var file:File? = null
     private lateinit var timer:Timer
 
     //request for RecordPermission
@@ -56,11 +56,11 @@ class RecordSound : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
             android.R.id.home -> {
-                if (!::file.isInitialized){
+                if (file == null){
                     this.finish()
                     return true
                 }
-                intent.putExtra("RECORDED_SOUND",file.path)
+                intent.putExtra(RESULT,file?.path)
                 setResult(Activity.RESULT_OK,intent)
                 this.finish()
                 return true
@@ -77,21 +77,21 @@ class RecordSound : AppCompatActivity() {
     }
 
     //release the media recorder, set record param and start record
-    fun recordStart(v:View) {
+    private fun recordStart(v:View) {
         if (editText.text.isEmpty()) {
             DurationText.text = "FieldIsEmpty"
             Log.e("EditableTest","EditableIsEmpty================================")
             return
         }
-        if (!::file.isInitialized) {file = File(this.filesDir,editText.text.toString()+".3gp")}
+        if (file == null) {file = File(this.filesDir,editText.text.toString()+".3gp")}
         mediaRecorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB)
-            setOutputFile(file.path)
+            setOutputFile(file?.path)
 //            setAudioSamplingRate(44100)
 //            setAudioEncodingBitRate()
-            DurationText.text = file.nameWithoutExtension
+            DurationText.text = file?.nameWithoutExtension
             try {
                 prepare()
             } catch (e: IOException){
@@ -105,7 +105,7 @@ class RecordSound : AppCompatActivity() {
     }
 
     //release recorder and stop recording
-    fun recordStop (v:View){
+    private fun recordStop (v:View){
         mediaRecorder.apply {
             stop()
             release()
@@ -115,10 +115,10 @@ class RecordSound : AppCompatActivity() {
     }
 
     //set path to the file to listening and start playing
-    fun playStart (v:View){
+    private fun playStart (v:View){
         mediaPlayer = MediaPlayer().apply {
             try {
-                setDataSource(file.path)
+                setDataSource(file?.path)
                 prepare()
                 start()
 
@@ -133,13 +133,13 @@ class RecordSound : AppCompatActivity() {
     }
 
     //stop playing file
-    fun playStop (v:View){
+    private fun playStop (v:View){
         mediaPlayer.release()
         timer.cancel()
         changeButtonTaskAndDrawable(stop_button,"play","play")
     }
 
-    fun changeButtonTaskAndDrawable(button:ImageView,drawable:String,task:String) {
+    private fun changeButtonTaskAndDrawable(button:ImageView,drawable:String,task:String) {
         button.setImageResource(resources.getIdentifier(drawable, "drawable", packageName))
         when (task) {
             "play" -> button.setOnClickListener { playStart(button) }

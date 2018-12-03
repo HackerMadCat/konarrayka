@@ -30,7 +30,7 @@ class SoundManager(private val activity: Activity) {
     }
 
     fun getDuration(sound: Sound): Int {
-        mediaPlayer = MediaPlayer().apply{setDataSource(sound.file.path)}
+        mediaPlayer = MediaPlayer().apply { setDataSource(sound.file.path) }
         return mediaPlayer.duration
     }
 
@@ -45,3 +45,4 @@ class SoundManager(private val activity: Activity) {
     companion object {
         const val REQUEST_CODE = 8931
     }
+}
