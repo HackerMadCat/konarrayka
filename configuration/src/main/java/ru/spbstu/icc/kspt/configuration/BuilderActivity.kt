@@ -1,5 +1,6 @@
 package ru.spbstu.icc.kspt.configuration
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -24,8 +25,8 @@ class BuilderActivity : AppCompatActivity() {
         rv_actions.layoutManager = LinearLayoutManager(this)
         rv_roles.layoutManager = LinearLayoutManager(this)
         rv_models.layoutManager = LinearLayoutManager(this)
-        rv_actions.adapter = ActionsAdapter(mutableRules)
-        rv_roles.adapter = ConditionElementAdapter(mutableRules)
+        rv_actions.adapter = ActionsAdapter(mutableRules, this)
+        rv_roles.adapter = ConditionElementAdapter(mutableRules, this)
         rv_models.adapter = ConditionalActionsAdapter(mutableRules)
         rv_models.setOnDragListener { _, event ->
             val source = event.localState as View
@@ -38,5 +39,10 @@ class BuilderActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val actionAdapter = rv_actions.adapter as ActionsAdapter
+        actionAdapter.onActivityResult(requestCode, resultCode, data)
     }
 }

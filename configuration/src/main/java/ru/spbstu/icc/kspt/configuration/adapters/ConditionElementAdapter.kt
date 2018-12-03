@@ -1,6 +1,8 @@
 package ru.spbstu.icc.kspt.configuration.adapters
 
+import android.app.Activity
 import android.content.ClipData
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -16,11 +18,16 @@ import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
 import android.support.v7.widget.RecyclerView.Adapter
 import android.support.v7.widget.RecyclerView.ViewHolder
+import ru.spbstu.icc.kspt.common.toast
 import ru.spbstu.icc.kspt.configuration.mutableModel.MutableRules
+import ru.spbstu.icc.kspt.sound.SoundManager
 
 typealias HeroVH = ConditionElementAdapter.HeroVH
 
-class ConditionElementAdapter(val rules: MutableRules) : Adapter<HeroVH>() {
+class ConditionElementAdapter(val rules: MutableRules, val activity: Activity) : Adapter<HeroVH>() {
+    // SoundManager is a stub. todo: replace on ConfigurationManager.Hero
+    private val manager = SoundManager(activity)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             HeroVH(parent.inflate(R.layout.item_role))
 
@@ -29,7 +36,7 @@ class ConditionElementAdapter(val rules: MutableRules) : Adapter<HeroVH>() {
 
     override fun getItemCount() = rules.conditionElements.size
 
-    class HeroVH(itemView: View) : ViewHolder(itemView), View.OnTouchListener {
+    inner class HeroVH(itemView: View) : ViewHolder(itemView), View.OnTouchListener {
 
         private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
@@ -92,7 +99,14 @@ class ConditionElementAdapter(val rules: MutableRules) : Adapter<HeroVH>() {
         }
 
         private fun showEditRoleDialog() {
-            TODO()
+            // todo: use ConfigurationManager.Action
+            manager.record {
+                activity.toast(it.file.name)
+            }
         }
+    }
+
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        manager.onActivityResult(requestCode, resultCode, data)
     }
 }
