@@ -2,5 +2,30 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorRed">#FFFF0000</color>
+    <color name="colorGreen">#FF00FF00</color>
+    <color name="colorBlue">#FF0000FF</color>
+    <color name="colorCyan">#FF00FFFF</color>
+    <color name="colorDarkBlue">#FF00008B</color>
+    <color name="colorDarkCyan">#FF008B8B</color>
+    <color name="colorDarkGreen">#FF006400</color>
+    <color name="colorViolet">#FFEE82EE</color>
+    <color name="colordMagenta">#FFFF00FF</color>
+    <color name="colorMaroon">#FF800000</color>
+    <color name="colorOrange">#FFFFA500</color>
+    <color name="colorOlive">#FF808000</color>
+    <color name="colorSilver">#FFC0C0C0</color>
+    <color name="colorYellow">#FFFFFF00</color>
+    <color name="colorYellowGreen">#FF9ACD32</color>
+    <color name="colorTomato">#FFFF6347</color>
+    <color name="colorPurple">#FF800080</color>
+    <color name="colorGold">#FFFFD700</color>
+    <color name="colorBlack">#FF000000</color>
+    <color name="colorDarkSlateBlue">#FF483D8B</color>
+    <color name="colorDarkSlateGray">#FF2F4F4F</color>
+    <color name="colorKhaki">#FFF0E68C</color>
+    <color name="colorBrown">#FFA52A2A</color>
+    <color name="colorGray">#FF808080</color>
 </resources>
