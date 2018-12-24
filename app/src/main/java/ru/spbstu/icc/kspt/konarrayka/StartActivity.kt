@@ -1,14 +1,14 @@
 package ru.spbstu.icc.kspt.konarrayka
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_start.*
 import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
 import android.view.View
 import ru.spbstu.icc.kspt.konarrayka.R.id.transition_position
 import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
 import android.graphics.Point
-import android.support.v7.widget.*
+import androidx.appcompat.widget.*
 import java.security.AccessController.getContext
 import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
 
@@ -29,10 +29,10 @@ class StartActivity: AppCompatActivity() {
 
         posts.add("New Game")
 
-        recyclerView.layoutManager = LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false) as RecyclerView.LayoutManager?
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.OrientationHelper.HORIZONTAL, false) as androidx.recyclerview.widget.RecyclerView.LayoutManager?
         recyclerView.adapter = PostsAdapter(posts)
         recyclerView.addItemDecoration(LinePagerIndicatorDecoration());
-        val snapHelper = PagerSnapHelper()
+        val snapHelper = androidx.recyclerview.widget.PagerSnapHelper()
         snapHelper.attachToRecyclerView(recyclerView)
         //val snapSnap = LinearSnapHelper()
         //snapSnap.attachToRecyclerView(recyclerView)
@@ -45,7 +45,7 @@ class StartActivity: AppCompatActivity() {
 
     fun returnBack(@Suppress("UNUSED_PARAMETER") view: View) {
 
-        val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
+        val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager?
         var activePosition = layoutManager!!.findFirstVisibleItemPosition()
         activePosition--
         recyclerView.scrollToPosition(activePosition)
@@ -54,7 +54,7 @@ class StartActivity: AppCompatActivity() {
 
     fun returnNext(@Suppress("UNUSED_PARAMETER") view: View) {
 
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
+            val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager?
             var activePosition = layoutManager!!.findFirstVisibleItemPosition()
             activePosition++
             recyclerView.smoothScrollBy(1080,0)

@@ -1,7 +1,7 @@
 package ru.spbstu.icc.kspt.common
 
 import android.app.Activity
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import java.util.logging.Logger
 import android.widget.Toast
 

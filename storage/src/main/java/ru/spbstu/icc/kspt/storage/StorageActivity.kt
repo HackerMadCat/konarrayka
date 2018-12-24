@@ -1,7 +1,7 @@
 package ru.spbstu.icc.kspt.storage
 
 import android.Manifest
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import ru.spbstu.icc.kspt.common.PermissionManager
 import ru.spbstu.icc.kspt.common.alert
 import ru.spbstu.icc.kspt.common.getExtra

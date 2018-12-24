@@ -2,8 +2,8 @@ package ru.spbstu.icc.kspt.configuration
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.DragEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_builder.*
@@ -22,9 +22,9 @@ class BuilderActivity : AppCompatActivity() {
         val (model, _) = RandomModelGenerator.nextModel(Random())
         val mutableModel = model.asMutable()
         val mutableRules = mutableModel.rules
-        rv_actions.layoutManager = LinearLayoutManager(this)
-        rv_roles.layoutManager = LinearLayoutManager(this)
-        rv_models.layoutManager = LinearLayoutManager(this)
+        rv_actions.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        rv_roles.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        rv_models.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         rv_actions.adapter = ActionsAdapter(mutableRules, this)
         rv_roles.adapter = ConditionElementAdapter(mutableRules, this)
         rv_models.adapter = ConditionalActionsAdapter(mutableRules)

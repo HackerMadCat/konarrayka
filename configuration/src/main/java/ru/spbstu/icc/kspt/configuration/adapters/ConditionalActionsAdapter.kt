@@ -2,8 +2,8 @@ package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.RecyclerView.Adapter
-import android.support.v7.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup

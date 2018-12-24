@@ -4,13 +4,13 @@ import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 
 
-class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
+class LinePagerIndicatorDecoration : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
     private val colorActive = -0x1
     private val colorInactive = 0x66FFFFFF
@@ -48,7 +48,7 @@ class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
         mPaint.setAntiAlias(true)
     }
 
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+    override fun onDrawOver(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
         super.onDrawOver(c, parent, state)
 
         val itemCount = parent.adapter!!.itemCount
@@ -66,9 +66,9 @@ class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
 
 
         // find active page (which should be highlighted)
-        val layoutManager = parent.layoutManager as LinearLayoutManager?
+        val layoutManager = parent.layoutManager as androidx.recyclerview.widget.LinearLayoutManager?
         val activePosition = layoutManager!!.findFirstVisibleItemPosition()
-        if (activePosition == RecyclerView.NO_POSITION) {
+        if (activePosition == androidx.recyclerview.widget.RecyclerView.NO_POSITION) {
             return
         }
 
@@ -128,7 +128,7 @@ class LinePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
         }
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.bottom = mIndicatorHeight
     }

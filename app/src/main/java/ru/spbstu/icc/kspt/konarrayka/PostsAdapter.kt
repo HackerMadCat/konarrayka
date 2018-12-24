@@ -1,6 +1,6 @@
 package ru.spbstu.icc.kspt.konarrayka
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +10,12 @@ import android.content.Intent
 import ru.spbstu.icc.kspt.configuration.BuilderActivity
 
 
-class PostsAdapter(val posts: ArrayList<String> ) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter(val posts: ArrayList<String> ) : androidx.recyclerview.widget.RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
 
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
         val imageView : ImageView = itemView.findViewById(R.id.imageView)
         val firstName : TextView = itemView.findViewById(R.id.firstName)
         init {
