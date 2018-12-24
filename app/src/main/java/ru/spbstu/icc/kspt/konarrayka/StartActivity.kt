@@ -1,64 +1,40 @@
 package ru.spbstu.icc.kspt.konarrayka
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_start.*
-import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
 import android.view.View
-import ru.spbstu.icc.kspt.konarrayka.R.id.transition_position
-import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
-import android.graphics.Point
-import androidx.appcompat.widget.*
-import java.security.AccessController.getContext
-import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.OrientationHelper
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_start.*
 
 
-
-
-class StartActivity: AppCompatActivity() {
+class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
         val posts: ArrayList<String> = ArrayList()
-
-        for (i in 1..5){
-            posts.add("Game $i")
-        }
-
-
+        posts.add("Game 1")
+        posts.add("Game 2")
+        posts.add("Game 3")
+        posts.add("Game 4")
+        posts.add("Game 5")
         posts.add("New Game")
 
-        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.OrientationHelper.HORIZONTAL, false) as androidx.recyclerview.widget.RecyclerView.LayoutManager?
+        recyclerView.layoutManager = LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false) as RecyclerView.LayoutManager?
         recyclerView.adapter = PostsAdapter(posts)
         recyclerView.addItemDecoration(LinePagerIndicatorDecoration());
-        val snapHelper = androidx.recyclerview.widget.PagerSnapHelper()
+        val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(recyclerView)
-        //val snapSnap = LinearSnapHelper()
-        //snapSnap.attachToRecyclerView(recyclerView)
     }
-
-
-
-
-
 
     fun returnBack(@Suppress("UNUSED_PARAMETER") view: View) {
-
-        val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager?
-        var activePosition = layoutManager!!.findFirstVisibleItemPosition()
-        activePosition--
-        recyclerView.scrollToPosition(activePosition)
-        }
-
-
-    fun returnNext(@Suppress("UNUSED_PARAMETER") view: View) {
-
-            val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager?
-            var activePosition = layoutManager!!.findFirstVisibleItemPosition()
-            activePosition++
-            recyclerView.smoothScrollBy(1080,0)
-
+        recyclerView.smoothScrollBy(-1080, 0)
     }
 
+    fun returnNext(@Suppress("UNUSED_PARAMETER") view: View) {
+        recyclerView.smoothScrollBy(1080, 0)
+    }
 }

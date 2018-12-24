@@ -4,8 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import java.io.File
 import ru.spbstu.icc.kspt.common.toast
+import java.io.File
 
 
 class ManualExternalStorageActivity : StorageActivity() {

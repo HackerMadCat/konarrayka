@@ -1,9 +1,10 @@
 package ru.spbstu.icc.kspt.configuration.mutableModel
 
+import ru.spbstu.icc.kspt.configuration.ConditionElement
+import ru.spbstu.icc.kspt.configuration.ConditionElement.HeroCE
+import ru.spbstu.icc.kspt.configuration.ConditionElement.OrCE
 import ru.spbstu.icc.kspt.configuration.model.Action
 import ru.spbstu.icc.kspt.configuration.model.Hero
-import ru.spbstu.icc.kspt.configuration.ConditionElement
-import ru.spbstu.icc.kspt.configuration.ConditionElement.*
 import ru.spbstu.icc.kspt.configuration.model.Rules
 
 data class MutableRules(

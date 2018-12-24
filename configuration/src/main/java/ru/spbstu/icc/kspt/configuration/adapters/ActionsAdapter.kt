@@ -9,13 +9,13 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.item_action.view.*
+import ru.spbstu.icc.kspt.common.toast
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
 import ru.spbstu.icc.kspt.configuration.model.Action
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import ru.spbstu.icc.kspt.common.toast
 import ru.spbstu.icc.kspt.configuration.mutableModel.MutableRules
 import ru.spbstu.icc.kspt.sound.SoundManager
 

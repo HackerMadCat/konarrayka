@@ -2,14 +2,13 @@ package ru.spbstu.icc.kspt.configuration
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.DragEvent
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_builder.*
 import ru.spbstu.icc.kspt.configuration.adapters.ActionsAdapter
-import ru.spbstu.icc.kspt.configuration.adapters.ConditionalActionsAdapter
 import ru.spbstu.icc.kspt.configuration.adapters.ConditionElementAdapter
+import ru.spbstu.icc.kspt.configuration.adapters.ConditionalActionsAdapter
 import ru.spbstu.icc.kspt.configuration.mutableModel.MutableCondition
 import ru.spbstu.icc.kspt.configuration.mutableModel.MutableConditionalAction
 import ru.spbstu.icc.kspt.configuration.mutableModel.asMutable

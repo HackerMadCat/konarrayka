@@ -2,15 +2,16 @@ package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import android.view.DragEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.android.synthetic.main.item_model.view.*
 import kotlinx.android.synthetic.main.layout_role.view.*
 import ru.spbstu.icc.kspt.configuration.ConditionElement
-import ru.spbstu.icc.kspt.configuration.ConditionElement.*
+import ru.spbstu.icc.kspt.configuration.ConditionElement.HeroCE
+import ru.spbstu.icc.kspt.configuration.ConditionElement.OrCE
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.inflate
 import ru.spbstu.icc.kspt.configuration.mutableModel.MutableConditionalAction

@@ -2,10 +2,7 @@ package ru.spbstu.icc.kspt.common
 
 import android.app.Activity
 import android.content.Intent
-import java.lang.IllegalArgumentException
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.reflect.full.companionObject
-import kotlin.reflect.full.memberProperties
 
 /**
  * Type parameter T must be not nullable

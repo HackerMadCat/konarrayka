@@ -1,9 +1,9 @@
 package ru.spbstu.icc.kspt.common
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import java.util.logging.Logger
-import android.widget.Toast
 
 
 fun Activity.alert(message: String, title: String = "Alert") {
