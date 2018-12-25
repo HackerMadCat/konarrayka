@@ -3,4 +3,8 @@
     <string name="findButtonText">find</string>
     <string name="next">next</string>
     <string name="back">back</string>
+    <string name="action_settings">action_settings</string>
+    <string name="action_agree">action_agree</string>
+    <string name="agree">agree</string>
+    <string name="settings">settings</string>
 </resources>

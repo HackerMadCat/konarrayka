@@ -1,19 +1,16 @@
 package ru.spbstu.icc.kspt.konarrayka
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_start.*
-import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
 import android.view.View
-import ru.spbstu.icc.kspt.konarrayka.R.id.transition_position
-import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
-import android.graphics.Point
 import android.support.v7.widget.*
-import java.security.AccessController.getContext
-import ru.spbstu.icc.kspt.konarrayka.R.id.recyclerView
-
-
-
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ActionMenuView
+import android.widget.Toast
+import ru.spbstu.icc.kspt.konarrayka.R.layout.mainsettings_activity
 
 class StartActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +19,7 @@ class StartActivity: AppCompatActivity() {
 
         val posts: ArrayList<String> = ArrayList()
 
-        for (i in 1..5){
+        for (i in 1..5) {
             posts.add("Game $i")
         }
 
@@ -34,13 +31,23 @@ class StartActivity: AppCompatActivity() {
         recyclerView.addItemDecoration(LinePagerIndicatorDecoration());
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(recyclerView)
-        //val snapSnap = LinearSnapHelper()
-        //snapSnap.attachToRecyclerView(recyclerView)
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
     }
 
 
-
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if(item.itemId == R.id.action_settings) {
+            startActivity(Intent(this, MainSettings::class.java))
+            true
+        }
+        else super.onOptionsItemSelected(item)
+    }
 
 
     fun returnBack(@Suppress("UNUSED_PARAMETER") view: View) {
@@ -49,7 +56,7 @@ class StartActivity: AppCompatActivity() {
         var activePosition = layoutManager!!.findFirstVisibleItemPosition()
         activePosition--
         recyclerView.scrollToPosition(activePosition)
-        }
+    }
 
 
     fun returnNext(@Suppress("UNUSED_PARAMETER") view: View) {
@@ -58,7 +65,6 @@ class StartActivity: AppCompatActivity() {
             var activePosition = layoutManager!!.findFirstVisibleItemPosition()
             activePosition++
             recyclerView.smoothScrollBy(1080,0)
-
     }
 
 }

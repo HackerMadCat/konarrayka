@@ -12,9 +12,6 @@ import ru.spbstu.icc.kspt.configuration.BuilderActivity
 
 class PostsAdapter(val posts: ArrayList<String> ) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
-
-
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val imageView : ImageView = itemView.findViewById(R.id.imageView)
         val firstName : TextView = itemView.findViewById(R.id.firstName)

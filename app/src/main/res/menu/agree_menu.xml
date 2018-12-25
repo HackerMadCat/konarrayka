@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".MainSettings">
+        <item
+            android:id="@+id/action_agree"
+            android:icon="@xml/ic_check"
+            android:title="@string/agree"
+            app:showAsAction="always" />
+</menu>
