@@ -1,29 +1,29 @@
 package ru.spbstu.icc.kspt.configuration.adapters
 
+import android.app.Activity
 import android.content.ClipData
+import android.content.Intent
 import android.os.Build
-import android.text.SpannableStringBuilder
 import android.view.*
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.DialogCallback
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.callbacks.onPreShow
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
 import kotlinx.android.synthetic.main.activity_builder.view.*
-import kotlinx.android.synthetic.main.dialog_action.view.*
 import kotlinx.android.synthetic.main.item_action.view.*
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.children
 import ru.spbstu.icc.kspt.configuration.inflate
+import ru.spbstu.icc.kspt.configuration.manager.ActionManager
 import ru.spbstu.icc.kspt.ui.models.Action
 import kotlin.math.abs
 
 class ActionsAdapter(
         private val actions: MutableList<Action>,
-        private val lastActions: MutableList<() -> Unit>
+        private val lastActions: MutableList<() -> Unit>,
+        activity: Activity
 ) : RecyclerView.Adapter<ActionsAdapter.ActionVH>() {
+
+    private val actionManager = ActionManager(activity)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActionVH {
         val itemView = parent.inflate(R.layout.item_action)
         return ActionVH(itemView)
@@ -85,22 +85,9 @@ class ActionsAdapter(
              * Method for displaying dialog with action information
              */
             override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-                val dialogCallback: DialogCallback = {
-                    it.getCustomView()?.let {
-                        val action = it.et_action.text.toString()
-                    }
+                actionManager.configureAction {
+                    println(it)
                 }
-                MaterialDialog(itemView.context).customView(R.layout.dialog_action)
-                        .title(R.string.title_edit_action)
-                        .positiveButton(click = dialogCallback)
-                        .negativeButton()
-                        .onPreShow {
-                            val selectedAction = actions[adapterPosition]
-                            it.getCustomView()?.let {
-                                it.et_action.text = SpannableStringBuilder(selectedAction.title)
-                            }
-                        }
-                        .show()
                 return true
             }
 
@@ -170,5 +157,9 @@ class ActionsAdapter(
         override fun onTouch(v: View, event: MotionEvent): Boolean {
             return gestureDetector.onTouchEvent(event)
         }
+    }
+
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        actionManager.onActivityResult(requestCode, resultCode, data)
     }
 }

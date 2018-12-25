@@ -1,27 +1,30 @@
 package ru.spbstu.icc.kspt.configuration.adapters
 
+import android.app.Activity
 import android.content.ClipData
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.text.SpannableStringBuilder
 import android.view.*
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.DialogCallback
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.callbacks.onPreShow
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
 import kotlinx.android.synthetic.main.activity_builder.view.*
-import kotlinx.android.synthetic.main.dialog_role.view.*
 import kotlinx.android.synthetic.main.item_role.view.*
 import ru.spbstu.icc.kspt.configuration.R
 import ru.spbstu.icc.kspt.configuration.children
 import ru.spbstu.icc.kspt.configuration.inflate
+import ru.spbstu.icc.kspt.configuration.manager.HeroManager
 import ru.spbstu.icc.kspt.ui.models.CompositeRole
 import kotlin.math.abs
 
-class RolesAdapter(private val roles: MutableList<CompositeRole>, private val lastActions: MutableList<() -> Unit>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RolesAdapter(
+        private val roles: MutableList<CompositeRole>,
+        private val lastActions: MutableList<() -> Unit>,
+        activity: Activity
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val heroManager = HeroManager(activity)
+
     override fun onCreateViewHolder(parent: ViewGroup, itemType: Int): RecyclerView.ViewHolder =
             if (itemType == ITEM_CONDITION) {
                 val itemView = parent.inflate(R.layout.item_condition)
@@ -75,24 +78,9 @@ class RolesAdapter(private val roles: MutableList<CompositeRole>, private val la
             }
 
             override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-                val dialogCallback: DialogCallback = {
-                    it.getCustomView()?.let {
-                        val role = it.et_role.text.toString()
-                        val color = it.et_color.text.toString()
-                    }
+                heroManager.configureHero {
+                    println(it)
                 }
-                MaterialDialog(itemView.context).customView(R.layout.dialog_role)
-                        .title(R.string.title_edit_role)
-                        .positiveButton(click = dialogCallback)
-                        .negativeButton()
-                        .onPreShow {
-                            val selectedRole = roles[adapterPosition] as CompositeRole.Role
-                            it.getCustomView()?.let { customView ->
-                                customView.et_role.text = SpannableStringBuilder(selectedRole.name)
-                                customView.et_color.text = SpannableStringBuilder(selectedRole.color.toString())
-                            }
-                        }
-                        .show()
                 return true
             }
 
@@ -234,6 +222,10 @@ class RolesAdapter(private val roles: MutableList<CompositeRole>, private val la
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             return gestureDetector.onTouchEvent(event)
         }
+    }
+
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        heroManager.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

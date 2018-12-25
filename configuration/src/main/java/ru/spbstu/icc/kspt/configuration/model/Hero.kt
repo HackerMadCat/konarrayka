@@ -7,7 +7,7 @@ data class Hero(
         val icon: File,
         val name: String,
         val color: Int
-):Serializable {
+) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Hero) return false

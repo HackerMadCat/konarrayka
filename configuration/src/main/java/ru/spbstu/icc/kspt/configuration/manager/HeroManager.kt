@@ -10,8 +10,8 @@ class HeroManager(private val activity: Activity) {
 
     private val callManager = CallManager<Hero, HeroConfigActivity>(HeroConfigActivity.RESULT)
 
-    fun configurateHero(callback: (Hero)->Unit){
-        callManager.call(activity, REQUEST_CODE,callback)
+    fun configureHero(callback: (Hero) -> Unit) {
+        callManager.call(activity, REQUEST_CODE, callback)
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

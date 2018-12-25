@@ -68,7 +68,8 @@ object RandomModelGenerator {
         val name = nextUniqueString(10)
         val description = random.nextString(100)
         val voices = nextRandomList(10) { nextSound() }
-        val duration = nextDuration()
+        val duration = random.nextNaturalInt(3600)
+//        val duration = nextDuration()
         return Action(icon, name, description, voices, duration)
     }
 

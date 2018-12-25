@@ -8,5 +8,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".actionConfig.ActionConfigActivity" />
+        <activity android:name=".heroConfig.HeroConfigActivity" />
+        <activity android:name=".heroConfig.PaletteActivity" />
     </application>
 </manifest>

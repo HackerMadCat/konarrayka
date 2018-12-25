@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_start.*
 
 
@@ -23,7 +22,7 @@ class StartActivity : AppCompatActivity() {
         posts.add("Game 5")
         posts.add("New Game")
 
-        recyclerView.layoutManager = LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false) as RecyclerView.LayoutManager?
+        recyclerView.layoutManager = LinearLayoutManager(this, OrientationHelper.HORIZONTAL, false)
         recyclerView.adapter = PostsAdapter(posts)
         recyclerView.addItemDecoration(LinePagerIndicatorDecoration());
         val snapHelper = PagerSnapHelper()

@@ -11,7 +11,7 @@ data class Action(
 //         coz ya ne uspel sdelat' shtyky, kotoraya delaet Duration peremennie
 //         val duration: Duration
         val duration: Int
-):Serializable {
+) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Action) return false

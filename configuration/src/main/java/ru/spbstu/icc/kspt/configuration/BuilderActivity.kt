@@ -1,5 +1,6 @@
 package ru.spbstu.icc.kspt.configuration
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.DragEvent
@@ -35,9 +36,9 @@ class BuilderActivity : AppCompatActivity() {
         val roles = (mutableListOf(CompositeRole.Condition) + (0..30).map { CompositeRole.Role("Role $it", colors[it % colors.size]) }).toMutableList()
         val models = mutableListOf<Model>()
         rv_actions.layoutManager = LinearLayoutManager(this)
-        rv_actions.adapter = ru.spbstu.icc.kspt.configuration.adapters.ActionsAdapter(actions, lastActions)
+        rv_actions.adapter = ActionsAdapter(actions, lastActions, this)
         rv_heroes.layoutManager = LinearLayoutManager(this)
-        rv_heroes.adapter = RolesAdapter(roles, lastActions)
+        rv_heroes.adapter = RolesAdapter(roles, lastActions, this)
         rv_models.layoutManager = LinearLayoutManager(this)
         rv_models.adapter = ModelsAdapter(models, roles, lastActions)
         rv_models.setOnDragListener { v, event ->
@@ -69,5 +70,12 @@ class BuilderActivity : AppCompatActivity() {
         } else {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val actionsAdapter = rv_actions.adapter as ActionsAdapter
+        actionsAdapter.onActivityResult(requestCode, resultCode, data)
+        val rolesAdapter = rv_heroes.adapter as RolesAdapter
+        rolesAdapter.onActivityResult(requestCode, resultCode, data)
     }
 }
