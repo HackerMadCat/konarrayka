@@ -1,4 +1,4 @@
-package ru.spbgstu.icc.kspt.ui.adapters
+package ru.spbstu.icc.kspt.configuration.adapters
 
 import android.content.ClipData
 import android.graphics.Color
@@ -9,14 +9,14 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
-import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.activity_builder.view.*
 import kotlinx.android.synthetic.main.item_action.view.*
 import kotlinx.android.synthetic.main.item_model.view.*
-import ru.spbgstu.icc.kspt.ui.R
-import ru.spbgstu.icc.kspt.ui.children
-import ru.spbgstu.icc.kspt.ui.inflate
-import ru.spbgstu.icc.kspt.ui.models.CompositeRole
-import ru.spbgstu.icc.kspt.ui.models.Model
+import ru.spbstu.icc.kspt.configuration.R
+import ru.spbstu.icc.kspt.configuration.children
+import ru.spbstu.icc.kspt.configuration.inflate
+import ru.spbstu.icc.kspt.ui.models.CompositeRole
+import ru.spbstu.icc.kspt.ui.models.Model
 import kotlin.math.abs
 
 class ModelsAdapter(

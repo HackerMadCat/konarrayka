@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">configuration</string>
+    <string name="app_name">BuilderApplication</string>
+    <string name="hint_role">Role</string>
+    <string name="hint_color">Color</string>
+    <string name="hint_action">Action</string>
+    <string name="title_edit_role">Edit Role</string>
+    <string name="title_edit_action">Edit Action</string>
 </resources>

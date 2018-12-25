@@ -1,3 +1,3 @@
-package ru.spbgstu.icc.kspt.ui.models
+package ru.spbstu.icc.kspt.ui.models
 
 data class Model(val action: Action, val roles: MutableList<CompositeRole>)

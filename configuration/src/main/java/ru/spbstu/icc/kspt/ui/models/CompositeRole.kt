@@ -1,4 +1,4 @@
-package ru.spbgstu.icc.kspt.ui.models
+package ru.spbstu.icc.kspt.ui.models
 
 sealed class CompositeRole {
     object Condition : CompositeRole()

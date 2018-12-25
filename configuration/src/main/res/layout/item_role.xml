@@ -14,6 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:padding="16dp" />
+        android:gravity="center_horizontal"
+        android:paddingStart="8dp" />
 
 </LinearLayout>

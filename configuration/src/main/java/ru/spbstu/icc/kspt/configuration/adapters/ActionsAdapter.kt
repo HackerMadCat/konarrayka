@@ -1,102 +1,174 @@
 package ru.spbstu.icc.kspt.configuration.adapters
 
-import android.app.Activity
 import android.content.ClipData
-import android.content.Intent
 import android.os.Build
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.text.SpannableStringBuilder
+import android.view.*
 import android.widget.LinearLayout
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.callbacks.onPreShow
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
+import kotlinx.android.synthetic.main.activity_builder.view.*
+import kotlinx.android.synthetic.main.dialog_action.view.*
 import kotlinx.android.synthetic.main.item_action.view.*
-import ru.spbstu.icc.kspt.common.toast
 import ru.spbstu.icc.kspt.configuration.R
+import ru.spbstu.icc.kspt.configuration.children
 import ru.spbstu.icc.kspt.configuration.inflate
-import ru.spbstu.icc.kspt.configuration.model.Action
-import ru.spbstu.icc.kspt.configuration.mutableModel.MutableRules
-import ru.spbstu.icc.kspt.sound.SoundManager
+import ru.spbstu.icc.kspt.ui.models.Action
+import kotlin.math.abs
 
-typealias ActionVH = ActionsAdapter.ActionVH
+class ActionsAdapter(
+        private val actions: MutableList<Action>,
+        private val lastActions: MutableList<() -> Unit>
+) : RecyclerView.Adapter<ActionsAdapter.ActionVH>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActionVH {
+        val itemView = parent.inflate(R.layout.item_action)
+        return ActionVH(itemView)
+    }
 
-// todo: [val activity: Activity] replace to [activity: Activity]
-class ActionsAdapter(val rules: MutableRules, val activity: Activity) : Adapter<ActionVH>() {
+    override fun onBindViewHolder(holder: ActionVH, position: Int) = holder.bind(actions[position])
 
-    // SoundManager is a stub. todo: replace on ConfigurationManager.Action
-    private val manager = SoundManager(activity)
+    override fun getItemCount() = actions.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            ActionVH(parent.inflate(R.layout.item_action))
-
-    override fun onBindViewHolder(holder: ActionVH, position: Int) =
-            holder.bind(rules.actions[position])
-
-    override fun getItemCount() = rules.actions.size
-
-    inner class ActionVH(itemView: View) : ViewHolder(itemView), View.OnTouchListener {
+    inner class ActionVH(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnTouchListener {
 
         private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-
-            override fun onDoubleTap(event: MotionEvent): Boolean {
-                changeColumnWidth()
+            /**
+             * Method that change columns weights
+             */
+            override fun onDoubleTap(e: MotionEvent): Boolean {
+                val listsContainer = itemView.parent.parent as ViewGroup
+                val controlsContainer = (listsContainer.parent as ViewGroup).controls_container
+                val buttons = controlsContainer.children()
+                val rvActions = listsContainer.rv_actions
+                val rvHeroes = listsContainer.rv_heroes
+                val rvModels = listsContainer.rv_models
+                val recyclerViews = listOf(rvActions, rvHeroes, rvModels)
+                val weights = if ((rvActions.layoutParams as LinearLayout.LayoutParams).weight == 6.0F) {
+                    listOf(1.5F, 6.0F, 1.5F)
+                } else {
+                    listOf(6.0F, 1.5F, 1.5F)
+                }
+                weights.forEachIndexed { index, weight ->
+                    var lp = recyclerViews[index].layoutParams as LinearLayout.LayoutParams
+                    lp.weight = weight
+                    recyclerViews[index].layoutParams = lp
+                    lp = buttons[index].layoutParams as LinearLayout.LayoutParams
+                    lp.weight = weight
+                    buttons[index].layoutParams = lp
+                }
                 return true
             }
 
-            override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
-                showEditActionDialog()
+            /**
+             * Method for removing action item from list, if diff between start and end point more
+             * that 0.5 of item width
+             */
+            override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+                val dx = abs(e2.x - e1.x)
+                if (itemView.width / dx > 0.5) {
+                    val action = actions.removeAt(adapterPosition)
+                    val position = adapterPosition
+                    notifyItemRemoved(position)
+                    lastActions.add {
+                        actions.add(position, action)
+                        notifyItemInserted(position)
+                    }
+                }
                 return true
             }
 
-            override fun onLongPress(event: MotionEvent) {
-                prepareAndStartDrag()
+            /**
+             * Method for displaying dialog with action information
+             */
+            override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+                val dialogCallback: DialogCallback = {
+                    it.getCustomView()?.let {
+                        val action = it.et_action.text.toString()
+                    }
+                }
+                MaterialDialog(itemView.context).customView(R.layout.dialog_action)
+                        .title(R.string.title_edit_action)
+                        .positiveButton(click = dialogCallback)
+                        .negativeButton()
+                        .onPreShow {
+                            val selectedAction = actions[adapterPosition]
+                            it.getCustomView()?.let {
+                                it.et_action.text = SpannableStringBuilder(selectedAction.title)
+                            }
+                        }
+                        .show()
+                return true
             }
 
-            override fun onDown(event: MotionEvent) = true
+            /**
+             * Method that start drag operation
+             */
+            override fun onLongPress(e: MotionEvent) {
+                val clipData = ClipData.newPlainText("", "")
+                val shadowBuilder = View.DragShadowBuilder(itemView)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    itemView.startDragAndDrop(clipData, shadowBuilder, itemView, 0)
+                } else {
+                    itemView.startDrag(clipData, shadowBuilder, itemView, 0)
+                }
+            }
+
+            override fun onDown(e: MotionEvent): Boolean {
+                return true
+            }
         }
 
         private val gestureDetector = GestureDetector(itemView.context, gestureListener)
 
-        override fun onTouch(v: View, event: MotionEvent) = gestureDetector.onTouchEvent(event)
+        /**
+         * Method that set action item height as 7/8 * a
+         * a = 1/16 of screen height
+         */
+        private fun changeHeight() {
+            val screenHeight = itemView.resources.displayMetrics.heightPixels;
+            val a = screenHeight / 16.0F
+            val measuredHeight = 7 * a / 8
+            val lp = itemView.layoutParams
+            lp.height = measuredHeight.toInt()
+            itemView.layoutParams = lp
+        }
 
         fun bind(action: Action) {
             with(itemView) {
-                tv_text.text = action.name
-                tv_text.tag = adapterPosition
+                changeHeight()
+                tv_action.text = action.title
+                tv_action.tag = adapterPosition
                 setOnTouchListener(this@ActionVH)
+                setOnDragListener { v, event ->
+                    val source = event.localState as View
+                    if (event.action == DragEvent.ACTION_DROP && source.id == R.id.tv_action) {
+                        val from = source.tag as Int
+                        val to = adapterPosition
+                        val tmp = actions[from]
+                        actions[from] = actions[to]
+                        actions[to] = tmp
+                        notifyDataSetChanged()
+                        lastActions.add {
+                            val tmp = actions[from]
+                            actions[from] = actions[to]
+                            actions[to] = tmp
+                            notifyDataSetChanged()
+                        }
+                    }
+                    true
+                }
             }
         }
 
-        private fun prepareAndStartDrag() {
-            val clipData = ClipData.newPlainText("", "")
-            val shadowBuilder = View.DragShadowBuilder(itemView)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                itemView.startDragAndDrop(clipData, shadowBuilder, itemView, 0)
-            } else {
-                itemView.startDrag(clipData, shadowBuilder, itemView, 0)
-            }
+        /**
+         * Method for sending touch events to gesture detector
+         */
+        override fun onTouch(v: View, event: MotionEvent): Boolean {
+            return gestureDetector.onTouchEvent(event)
         }
-
-        private fun changeColumnWidth() {
-            val lp = (itemView.parent as ViewGroup).layoutParams as LinearLayout.LayoutParams
-            if (lp.weight.toInt() == 1) {
-                lp.weight = 2.0F
-            } else {
-                lp.weight = 1.0F
-            }
-            (itemView.parent as ViewGroup).layoutParams = lp
-        }
-
-        private fun showEditActionDialog() {
-            // todo: use ConfigurationManager.Action
-            manager.record {
-                activity.toast(it.file.name)
-            }
-        }
-    }
-
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        manager.onActivityResult(requestCode, resultCode, data)
     }
 }
