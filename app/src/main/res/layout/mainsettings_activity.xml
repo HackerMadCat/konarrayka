@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
         android:layout_marginBottom="8dp"
-        android:text="Sound"
+        android:text="Music"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintStart_toStartOf="parent" />
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
         android:layout_marginBottom="8dp"
-        android:text="Music"
+        android:text="Sound"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar1"
         app:layout_constraintStart_toStartOf="parent" />
